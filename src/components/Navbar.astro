@@ -17,35 +17,46 @@ const menuitems = [
 		path: '#contact',
 	},
 ];
+
+const resumeFileId = '13k7uv_H4WHEiWmayNoiedjVIqeab-9MB';
+const resumeDownloadLink = `https://drive.google.com/uc?export=download&id=${resumeFileId}`;
 ---
 
 <header data-testId="header" class="my-5 flex flex-col items-center justify-between lg:flex-row">
 	<Astronav>
 		<div class="flex w-full items-center justify-between lg:w-auto">
-			<Button size={'sm'} name="Download CV">Download CV</Button>
+			<a
+				href={resumeDownloadLink}
+				class="flex items-center gap-2 text-black hover:text-orange dark:text-white dark:hover:text-orange"
+				target="_blank"
+				rel="noopener"
+				aria-label="Download resume"
+			>
+				<Button size={'sm'} name="Download resume">Download resume</Button>
+			</a>
 			<div class="block lg:hidden">
 				<MenuIcon class="h-8 w-8 text-black dark:text-white" />
 			</div>
 		</div>
-		<MenuItems class="mt-2 hidden w-full lg:mt-0 lg:flex lg:w-auto">
-			<ul class="flex flex-col lg:flex-row lg:gap-3">
-				{
-					menuitems.map((item) => (
-						<>
-							<li>
-								<a
-									aria-label="navigation link"
-									href={item.path}
-									class="flex py-2 text-black hover:text-orange dark:text-white dark:hover:text-orange lg:px-3"
-								>
-									{item.title}
-								</a>
-							</li>
-						</>
-					))
-				}
-				<li><ToggleTheme /></li>
-			</ul>
-		</MenuItems>
 	</Astronav>
+	<MenuItems class="mt-2 hidden w-full lg:mt-0 lg:flex lg:w-auto">
+		<ul class="flex flex-col lg:flex-row lg:gap-3">
+			{
+				menuitems.map((item) => (
+					<>
+						<li>
+							<a
+								aria-label="navigation link"
+								href={item.path}
+								class="flex py-2 text-black hover:text-orange dark:text-white dark:hover:text-orange lg:px-3"
+							>
+								{item.title}
+							</a>
+						</li>
+					</>
+				))
+			}
+			<li><ToggleTheme /></li>
+		</ul>
+	</MenuItems>
 </header>
