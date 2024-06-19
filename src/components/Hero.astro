@@ -2,6 +2,9 @@
 import heroImage from '@assets/images/hero.png';
 import Button from '@components/ui/Button.astro';
 import { Image } from 'astro:assets';
+
+const resumeFileId = '13k7uv_H4WHEiWmayNoiedjVIqeab-9MB';
+const resumeDownloadLink = `https://drive.google.com/uc?export=download&id=${resumeFileId}`;
 ---
 
 <section
@@ -11,12 +14,16 @@ import { Image } from 'astro:assets';
 	<div class="flex flex-col items-center lg:mb-0 lg:w-1/2">
 		<div>
 			<h1 class="mb-10 font-monospace text-3xl text-black dark:text-white lg:text-left lg:text-5xl">
-				Hi! My name is <span class="text-orange">Abdallah Shaban</span> and I am a Product Manager based
-				in San Diego,CA.
+				Hi! My name is <span class="text-orange">Abdallah Shaban</span> and I'm a Product Manager based
+				in San Diego.
 			</h1>
 		</div>
 		<div class="mb-10">
-			<Button style={'primary'} size={'lg'} class={'flex'} name="learn more">Learn more</Button>
+			<a href={resumeDownloadLink} target="_blank" rel="noopener" aria-label="Download resume">
+				<Button style={'primary'} size={'lg'} class={'flex'} name="Download resume"
+					>Download resume</Button
+				>
+			</a>
 		</div>
 	</div>
 	<div data-testid="hero-img" class="mb-10 flex w-1/2 items-center justify-center">

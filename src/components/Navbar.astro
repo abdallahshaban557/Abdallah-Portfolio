@@ -17,23 +17,11 @@ const menuitems = [
 		path: '#contact',
 	},
 ];
-
-const resumeFileId = '13k7uv_H4WHEiWmayNoiedjVIqeab-9MB';
-const resumeDownloadLink = `https://drive.google.com/uc?export=download&id=${resumeFileId}`;
 ---
 
 <header data-testId="header" class="my-5 flex flex-col items-center justify-between lg:flex-row">
 	<Astronav>
 		<div class="flex w-full items-center justify-between lg:w-auto">
-			<a
-				href={resumeDownloadLink}
-				class="flex items-center gap-2 text-black hover:text-orange dark:text-white dark:hover:text-orange"
-				target="_blank"
-				rel="noopener"
-				aria-label="Download resume"
-			>
-				<Button size={'sm'} name="Download resume">Download resume</Button>
-			</a>
 			<div class="block lg:hidden">
 				<MenuIcon class="h-8 w-8 text-black dark:text-white" />
 			</div>
