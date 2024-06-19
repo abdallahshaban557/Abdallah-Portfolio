@@ -2,17 +2,19 @@
 import Footer from '@components/Footer.astro';
 import Navbar from '@components/Navbar.astro';
 import { SEO } from 'astro-seo';
+import PostHog from '../components/posthog.astro';
 
 export interface LayoutProps {
 	title: string;
 }
 
-const { title = 'John Doe | Web developer' } = Astro.props as LayoutProps;
+const { title = 'Abdallah Shaban | Product Manager' } = Astro.props as LayoutProps;
 ---
 
 <!doctype html>
 <html lang="en" class="scroll-smooth" data-testid="html">
 	<head>
+		
 		<SEO
 			title="A Very Descriptive Title"
 			description="A heavily optimized description full of well-researched keywords."
@@ -22,8 +24,10 @@ const { title = 'John Doe | Web developer' } = Astro.props as LayoutProps;
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="generator" content={Astro.generator} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		
 
 		<title>{title}</title>
+		<PostHog />
 	</head>
 	<body
 		class="mx-auto max-w-screen-xl bg-white px-5 font-sans text-white dark:bg-black xs:text-[16px] md:text-[18px]"
