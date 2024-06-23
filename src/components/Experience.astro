@@ -3,7 +3,8 @@ const workExperiences = [
     {
         company: 'Celest',
         role: 'Co-Founder & CPO',
-        period: 'Nov 2023 / Mar 2024',
+        startDate: 'Nov 2023',
+        endDate: 'Mar 2024',
         responsibilities: [
             'Launched PaaS for Dart backends',
             'Raised $527K in funding and participated in Y-Combinator',
@@ -15,7 +16,8 @@ const workExperiences = [
     {
         company: 'AWS',
         role: 'Sr. Product Manager',
-        period: 'Oct 2021 / Nov 2023',
+        startDate: 'Oct 2021',
+        endDate: 'Nov 2023',
         responsibilities: [
             'Led Amplify JS/Flutter SDKs, Auth, Analytics, Notifications',
             'Delivered In-App Messaging, Push Notifications, Auth/Analytics features (30% YoY growth)',
@@ -27,7 +29,8 @@ const workExperiences = [
     {
         company: 'Petco',
         role: 'Sr. Product Manager',
-        period: 'Jan 2017 / Oct 2021',
+        startDate: 'Jan 2017',
+        endDate: 'Oct 2021',
         responsibilities: [
             'Led store employee app development ($3.5M/year savings)',
             'Hired & managed 3 product managers',
@@ -39,7 +42,8 @@ const workExperiences = [
     {
         company: 'Zain',
         role: 'Product Manager',
-        period: 'Jun 2013 / Aug 2016',
+        startDate: 'Jun 2013',
+        endDate: 'Aug 2016',
         responsibilities: [
             'Launched the first 4G/LTE in Jordan',
             'Restructured self-service channels (600% YoY user growth)',
@@ -70,8 +74,10 @@ const workExperiences = [
                                         <h3 class="text-xl sm:text-xl font-bold">{job.company}</h3>
                                         <p class="text-md">{job.role}</p>
                                     </div>
-                                    <div class="flex items-center">
-                                        <p class="text-md mr-2">{job.period}</p>
+                                    <div class="flex flex-col items-end md:flex-row"> <!-- Added a flex container to allow wrapping -->
+                                        <p class="text-md mb-1 md:mb-0">{job.startDate}</p> <!-- Start date -->
+                                        <p class="text-md mb-1 md:mb-0 md:ml-2 md:mr-2">/</p> <!-- Slash separator -->
+                                        <p class="text-md mb-1 md:mb-0">{job.endDate}</p> <!-- End date -->
                                         <svg
                                             class="text-orange-500 h-6 w-6 transform transition-transform"
                                             fill="none"
@@ -150,4 +156,4 @@ const workExperiences = [
             }
         });
     });
-</script>  
+</script>
