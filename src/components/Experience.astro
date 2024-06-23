@@ -30,44 +30,49 @@ const workExperiences = [
 	</div>
 	<div class="container mx-auto px-4 text-black dark:text-white">
 		<div class="mx-auto max-w-2xl">
-			{workExperiences.map((job, index) => (
-				<div class="accordion-item mb-4 border-orange-500 overflow-hidden rounded-xl border-2 transition-all ease-in-out hover:scale-[1.02]" data-index={index}>
-					<div class="bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800 p-4 transition-colors duration-300 cursor-pointer">
-						<button class="w-full text-left focus:outline-none">
-							<div class="flex items-center justify-between">
-								<div>
-									<h3 class="text-orange-500 text-xl font-bold">{job.company}</h3>
-									<p class="text-md text-gray-700 dark:text-gray-300">{job.role}</p>
+			{
+				workExperiences.map((job, index) => (
+					<div
+						class="accordion-item border-orange-500 mb-4 overflow-hidden rounded-xl border-2 transition-all ease-in-out hover:scale-[1.02]"
+						data-index={index}
+					>
+						<div class="bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer p-4 transition-colors duration-300">
+							<button class="w-full text-left focus:outline-none">
+								<div class="flex items-center justify-between">
+									<div>
+										<h3 class="text-orange-500 text-xl font-bold">{job.company}</h3>
+										<p class="text-md text-gray-700 dark:text-gray-300">{job.role}</p>
+									</div>
+									<svg
+										class="text-orange-500 h-6 w-6 transform transition-transform"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M19 9l-7 7-7-7"
+										/>
+									</svg>
 								</div>
-								<svg
-									class="text-orange-500 h-6 w-6 transform transition-transform"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M19 9l-7 7-7-7"
-									/>
-								</svg>
+							</button>
+						</div>
+						<div class="accordion-content mt-2 max-h-0 overflow-hidden rounded-xl pb-0 pt-0 opacity-0 transition-all duration-300 ease-in-out">
+							<div class="p-4">
+								<p class="text-md mb-2">{job.period}</p>
+								<ul class="list-inside list-disc">
+									{job.responsibilities.map((resp) => (
+										<li class="mb-1">{resp}</li>
+									))}
+								</ul>
 							</div>
-						</button>
-					</div>
-					<div class="accordion-content mt-2 max-h-0 overflow-hidden rounded-xl pb-0 pt-0 opacity-0 transition-all duration-300 ease-in-out">
-						<div class="p-4">
-							<p class="text-md mb-2">{job.period}</p>
-							<ul class="list-inside list-disc">
-								{job.responsibilities.map((resp) => (
-									<li class="mb-1">{resp}</li>
-								))}
-							</ul>
 						</div>
 					</div>
-				</div>
-			))}
+				))
+			}
 		</div>
 	</div>
 </section>
@@ -77,40 +82,43 @@ const workExperiences = [
 		const accordionItems = document.querySelectorAll('.accordion-item');
 
 		accordionItems.forEach((item) => {
-			const button = item.querySelector('button');
 			const content = item.querySelector('.accordion-content');
-			const icon = button.querySelector('svg');
+			const icon = item.querySelector('svg');
+			const button = item.querySelector('.cursor-pointer button'); // Update the button selector
 
-			button.addEventListener('click', () => {
-				const isOpen = content.classList.toggle('is-open');
+			if (button && content && icon) {
+				button.addEventListener('click', () => {
+					const isOpen = content.classList.toggle('is-open');
 
-				if (isOpen) {
-					content.classList.remove('max-h-0', 'opacity-0', 'pt-0', 'pb-0');
-					content.classList.add('max-h-[1000px]', 'opacity-100', 'pt-4', 'pb-4');
-					icon.classList.add('rotate-180');
-				} else {
-					content.classList.add('max-h-0', 'opacity-0', 'pt-0', 'pb-0');
-					content.classList.remove('max-h-[1000px]', 'opacity-100', 'pt-4', 'pb-4');
-					icon.classList.remove('rotate-180');
-				}
-
-				// Close other open items
-				accordionItems.forEach((otherItem) => {
-					if (otherItem !== item) {
-						const otherContent = otherItem.querySelector('.accordion-content');
-						const otherIcon = otherItem.querySelector('svg');
-						otherContent.classList.remove(
-							'is-open',
-							'max-h-[1000px]',
-							'opacity-100',
-							'pt-4',
-							'pb-4'
-						);
-						otherContent.classList.add('max-h-0', 'opacity-0', 'pt-0', 'pb-0');
-						otherIcon.classList.remove('rotate-180');
+					if (isOpen) {
+						content.classList.remove('max-h-0', 'opacity-0', 'pt-0', 'pb-0');
+						content.classList.add('max-h-[1000px]', 'opacity-100', 'pt-4', 'pb-4');
+						icon.classList.add('rotate-180');
+					} else {
+						content.classList.add('max-h-0', 'opacity-0', 'pt-0', 'pb-0');
+						content.classList.remove('max-h-[1000px]', 'opacity-100', 'pt-4', 'pb-4');
+						icon.classList.remove('rotate-180');
 					}
+
+					accordionItems.forEach((otherItem) => {
+						if (otherItem !== item) {
+							const otherContent = otherItem.querySelector('.accordion-content');
+							const otherIcon = otherItem.querySelector('svg');
+							if (otherContent && otherIcon) {
+								otherContent.classList.remove(
+									'is-open',
+									'max-h-[1000px]',
+									'opacity-100',
+									'pt-4',
+									'pb-4'
+								);
+								otherContent.classList.add('max-h-0', 'opacity-0', 'pt-0', 'pb-0');
+								otherIcon.classList.remove('rotate-180');
+							}
+						}
+					});
 				});
-			});
+			}
 		});
 	});
 </script>
