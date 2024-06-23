@@ -76,16 +76,19 @@ const workExperiences = [
 										<h3 class="text-xl font-bold sm:text-xl">{job.company}</h3>
 										<p class="text-md">{job.role}</p>
 									</div>
-									<div class="flex flex-col items-end md:flex-row">
-										<p class="text-md mb-1 md:mb-0">{job.startDate}</p>
-										<p class="text-md mb-1 md:mb-0 md:ml-2 md:mr-2">/</p>
-										<p class="text-md mb-1 md:mb-0">{job.endDate}</p>
+									<div class="flex flex-wrap">
+										<p class="text-md">{job.startDate}</p>
+										<p class="text-md  ">/</p>
+										<p class="text-md" style="white-space: nowrap;">
+											{job.endDate}
+										</p>
 										<svg
 											class="text-orange-500 h-6 w-6 transform ps-2 transition-transform"
 											fill="none"
 											stroke="currentColor"
 											viewBox="0 0 24 24"
 											xmlns="http://www.w3.org/2000/svg"
+											style="margin-left: auto;"
 										>
 											<path
 												stroke-linecap="round"
