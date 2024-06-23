@@ -35,15 +35,15 @@ const workExperiences = [
 			{
 				workExperiences.map((job, index) => (
 					<div class="accordion-item mb-4" data-index={index}>
-						<button class="border-orange-500 w-full overflow-hidden rounded-xl border-2 text-left transition-all duration-300 ease-in-out hover:scale-[1.02] focus:outline-none">
-							<div class="bg-gray-900 hover:bg-gray-800 p-4 duration-300">
+						<button class="border-black-500 w-full overflow-hidden rounded-xl border-2 text-left transition-all ease-in-out hover:scale-[1.02] focus:outline-none">
+							<div class=" p-4">
 								<div class="flex items-center justify-between">
 									<div>
-										<h3 class="text-orange-500 text-xl font-bold">{job.company}</h3>
-										<p class="text-gray-400 text-md">{job.role}</p>
+										<h3 class="text-xl font-bold">{job.company}</h3>
+										<p class="text-md">{job.role}</p>
 									</div>
 									<svg
-										class="text-orange-500 h-6 w-6 transform transition-transform duration-300"
+										class="h-6 w-6 transform transition-transform "
 										fill="none"
 										stroke="currentColor"
 										viewBox="0 0 24 24"
@@ -59,10 +59,10 @@ const workExperiences = [
 								</div>
 							</div>
 						</button>
-						<div class="accordion-content bg-gray-800 mt-2 max-h-0 overflow-hidden rounded-xl pb-0 pt-0 opacity-0 transition-all duration-300 ease-in-out">
+						<div class="accordion-content mt-2 max-h-0 overflow-hidden rounded-xl pb-0 pt-0 opacity-0 transition-all duration-300 ease-in-out">
 							<div class="p-4">
-								<p class="text-gray-400 text-md mb-2">{job.period}</p>
-								<ul class="text-gray-300 list-inside list-disc">
+								<p class="text-md mb-2">{job.period}</p>
+								<ul class=" list-inside list-disc">
 									{job.responsibilities.map((resp) => (
 										<li class="mb-1">{resp}</li>
 									))}
@@ -92,14 +92,10 @@ const workExperiences = [
 					content.classList.remove('max-h-0', 'opacity-0', 'pt-0', 'pb-0');
 					content.classList.add('max-h-[1000px]', 'opacity-100', 'pt-4', 'pb-4');
 					icon.classList.add('rotate-180');
-					button.classList.add('border-orange-500');
-					button.classList.remove('hover:border-orange-500');
 				} else {
 					content.classList.add('max-h-0', 'opacity-0', 'pt-0', 'pb-0');
 					content.classList.remove('max-h-[1000px]', 'opacity-100', 'pt-4', 'pb-4');
 					icon.classList.remove('rotate-180');
-					button.classList.remove('border-orange-500');
-					button.classList.add('hover:border-orange-500');
 				}
 
 				// Close other open items
@@ -117,8 +113,6 @@ const workExperiences = [
 						);
 						otherContent.classList.add('max-h-0', 'opacity-0', 'pt-0', 'pb-0');
 						otherIcon.classList.remove('rotate-180');
-						otherButton.classList.remove('border-orange-500');
-						otherButton.classList.add('hover:border-orange-500');
 					}
 				});
 			});
