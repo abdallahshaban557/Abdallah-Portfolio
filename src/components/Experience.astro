@@ -23,7 +23,9 @@ const workExperiences = [
 ];
 ---
 
-<section class="mb-10 flex flex-col items-center justify-center bg-black py-8 text-white lg:my-16">
+<section
+	class="mb-10 flex flex-col items-center justify-center py-8 text-black dark:text-white lg:my-16"
+>
 	<div class="mb-10 flex w-full flex-col items-center justify-center lg:mb-0 lg:w-1/2">
 		<h2 class="font-monospace text-2xl text-orange lg:text-4xl">Work Experience</h2>
 		<span class="mb-6 ml-2 h-1 w-10 bg-orange"></span>
@@ -33,7 +35,7 @@ const workExperiences = [
 			{
 				workExperiences.map((job, index) => (
 					<div class="accordion-item mb-4" data-index={index}>
-						<button class="w-full overflow-hidden rounded-xl text-left transition-all duration-300 ease-in-out hover:scale-[1.02] focus:scale-[1.02] focus:outline-none">
+						<button class="border-transparent hover:border-orange-500 w-full overflow-hidden rounded-xl border-2 text-left transition-all duration-300 ease-in-out hover:scale-[1.02] focus:scale-[1.02] focus:outline-none">
 							<div class="bg-gray-900 hover:bg-gray-800 p-4 transition-colors duration-300">
 								<div class="flex items-center justify-between">
 									<div>
@@ -57,13 +59,15 @@ const workExperiences = [
 								</div>
 							</div>
 						</button>
-						<div class="accordion-content bg-gray-800 mt-2 rounded-xl p-4 transition-all duration-300 ease-in-out">
-							<p class="text-gray-400 mb-2 text-sm">{job.period}</p>
-							<ul class="text-gray-300 list-inside list-disc">
-								{job.responsibilities.map((resp) => (
-									<li class="mb-1">{resp}</li>
-								))}
-							</ul>
+						<div class="accordion-content bg-gray-800 mt-2 max-h-0 overflow-hidden rounded-xl pb-0 pt-0 opacity-0 transition-all duration-300 ease-in-out">
+							<div class="p-4">
+								<p class="text-gray-400 mb-2 text-sm">{job.period}</p>
+								<ul class="text-gray-300 list-inside list-disc">
+									{job.responsibilities.map((resp) => (
+										<li class="mb-1">{resp}</li>
+									))}
+								</ul>
+							</div>
 						</div>
 					</div>
 				))
@@ -83,53 +87,41 @@ const workExperiences = [
 
 			button.addEventListener('click', () => {
 				const isOpen = content.classList.toggle('is-open');
-				icon.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+
+				if (isOpen) {
+					content.classList.remove('max-h-0', 'opacity-0', 'pt-0', 'pb-0');
+					content.classList.add('max-h-[1000px]', 'opacity-100', 'pt-4', 'pb-4');
+					icon.classList.add('rotate-180');
+					button.classList.add('border-orange-500');
+					button.classList.remove('hover:border-orange-500');
+				} else {
+					content.classList.add('max-h-0', 'opacity-0', 'pt-0', 'pb-0');
+					content.classList.remove('max-h-[1000px]', 'opacity-100', 'pt-4', 'pb-4');
+					icon.classList.remove('rotate-180');
+					button.classList.remove('border-orange-500');
+					button.classList.add('hover:border-orange-500');
+				}
 
 				// Close other open items
 				accordionItems.forEach((otherItem) => {
 					if (otherItem !== item) {
 						const otherContent = otherItem.querySelector('.accordion-content');
 						const otherIcon = otherItem.querySelector('svg');
-						otherContent.classList.remove('is-open');
-						otherIcon.style.transform = 'rotate(0deg)';
+						const otherButton = otherItem.querySelector('button');
+						otherContent.classList.remove(
+							'is-open',
+							'max-h-[1000px]',
+							'opacity-100',
+							'pt-4',
+							'pb-4'
+						);
+						otherContent.classList.add('max-h-0', 'opacity-0', 'pt-0', 'pb-0');
+						otherIcon.classList.remove('rotate-180');
+						otherButton.classList.remove('border-orange-500');
+						otherButton.classList.add('hover:border-orange-500');
 					}
 				});
 			});
 		});
 	});
 </script>
-
-<style>
-	.accordion-item button {
-		border: 2px solid transparent;
-		transition: border-color 0.3s ease-in-out;
-	}
-
-	.accordion-item button:hover,
-	.accordion-item button:focus {
-		border-color: #f97316;
-	}
-
-	.accordion-content {
-		max-height: 0;
-		opacity: 0;
-		overflow: hidden;
-		transition:
-			max-height 0.3s ease-out,
-			opacity 0.3s ease-out,
-			padding 0.3s ease-out;
-		padding-top: 0;
-		padding-bottom: 0;
-	}
-
-	.accordion-content.is-open {
-		max-height: 1000px; /* Adjust this value based on your content */
-		opacity: 1;
-		padding-top: 1rem;
-		padding-bottom: 1rem;
-		transition:
-			max-height 0.5s ease-in,
-			opacity 0.5s ease-in,
-			padding 0.5s ease-in;
-	}
-</style>
