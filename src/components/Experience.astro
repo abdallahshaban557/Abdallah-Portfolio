@@ -51,104 +51,103 @@ const workExperiences = [
 ---
 
 <section class="mb-10 flex flex-col items-center justify-center py-8 lg:my-16">
-	<div class="mb-10 flex w-full flex-col items-center justify-center lg:w-1/2">
-		<h2 class="font-monospace text-2xl text-orange lg:text-4xl">Work Experience</h2>
-		<span class="mb-6 ml-2 h-1 w-10 bg-orange"></span>
-	</div>
-	<div class="container mx-auto px-4 text-black dark:text-white">
-		<div class="mx-auto max-w-2xl">
-			{
-				workExperiences.map((job, index) => (
-					<div
-						class="accordion-item border-orange mb-4 overflow-hidden rounded-xl border-2 transition-all ease-in-out hover:scale-[1.02] "
-						data-index={index}
-					>
-						<div class=" dark:hover:bg-gray-800 cursor-pointer p-4 transition-colors duration-300">
-    <button class="w-full text-left focus:outline-none">
-        <div class="flex items-center justify-between">
-            <div>
-                <h3 class="text-xl sm:text-xl font-bold">{job.company}</h3>
-                <p class="text-md ">{job.role}</p>
-            </div>
-            <div class="flex items-center"> <!-- Added a new flex container -->
-                <p class="text-md mr-2">{job.period}</p> <!-- Moved the date here -->
-                <svg
-                    class="text-orange-500 h-6 w-6 transform transition-transform"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M19 9l-7 7-7-7"
-                    />
-                </svg>
-            </div>
+    <div class="mb-10 flex w-full flex-col items-center justify-center lg:w-1/2">
+        <h2 class="font-monospace text-2xl text-orange lg:text-4xl">Work Experience</h2>
+        <span class="mb-6 ml-2 h-1 w-10 bg-orange"></span>
+    </div>
+    <div class="container mx-auto px-4 text-black dark:text-white">
+        <div class="mx-auto max-w-2xl">
+            {
+                workExperiences.map((job, index) => (
+                    <div
+                        class="accordion-item border-orange mb-4 overflow-hidden rounded-xl border-2 transition-all ease-in-out hover:scale-[1.02] "
+                        data-index={index}
+                    >
+                        <div class="dark:hover:bg-gray-800 cursor-pointer p-4 transition-colors duration-300">
+                            <button class="w-full text-left focus:outline-none">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h3 class="text-xl sm:text-xl font-bold">{job.company}</h3>
+                                        <p class="text-md">{job.role}</p>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <p class="text-md mr-2">{job.period}</p>
+                                        <svg
+                                            class="text-orange-500 h-6 w-6 transform transition-transform"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M19 9l-7 7-7-7"
+                                            />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="accordion-content mt-2 max-h-0 overflow-hidden rounded-xl pb-0 pt-0 opacity-0 transition-all duration-300 ease-in-out">
+                            <div class="px-8">
+                                <ul class="list-outside list-disc">
+                                    {job.responsibilities.map((resp) => (
+                                        <li class="mb-1">{resp}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                ))
+            }
         </div>
-    </button>
-</div>
-						<div class="accordion-content mt-2 max-h-0 overflow-hidden rounded-xl pb-0 pt-0 opacity-0 transition-all duration-300 ease-in-out">
-							<div class="px-8">
-								
-								<ul class="list-outside list-disc">
-									{job.responsibilities.map((resp) => (
-										<li class="mb-1">{resp}</li>
-									))}
-								</ul>
-							</div>
-						</div>
-					</div>
-				))
-			}
-		</div>
-	</div>
+    </div>
 </section>
 
 <script>
-	document.addEventListener('DOMContentLoaded', () => {
-		const accordionItems = document.querySelectorAll('.accordion-item');
+    document.addEventListener('DOMContentLoaded', () => {
+        const accordionItems = document.querySelectorAll('.accordion-item');
 
-		accordionItems.forEach((item) => {
-			const content = item.querySelector('.accordion-content');
-			const icon = item.querySelector('svg');
-			const button = item.querySelector('.cursor-pointer button'); // Update the button selector
+        accordionItems.forEach((item) => {
+            const content = item.querySelector('.accordion-content');
+            const icon = item.querySelector('svg');
+            const button = item.querySelector('.cursor-pointer button'); // Update the button selector
 
-			if (button && content && icon) {
-				button.addEventListener('click', () => {
-					const isOpen = content.classList.toggle('is-open');
+            if (button && content && icon) {
+                button.addEventListener('click', () => {
+                    const isOpen = content.classList.toggle('is-open');
 
-					if (isOpen) {
-						content.classList.remove('max-h-0', 'opacity-0', 'pt-0', 'pb-0');
-						content.classList.add('max-h-[1000px]', 'opacity-100', 'pt-4', 'pb-4');
-						icon.classList.add('rotate-180');
-					} else {
-						content.classList.add('max-h-0', 'opacity-0', 'pt-0', 'pb-0');
-						content.classList.remove('max-h-[1000px]', 'opacity-100', 'pt-4', 'pb-4');
-						icon.classList.remove('rotate-180');
-					}
+                    if (isOpen) {
+                        content.classList.remove('max-h-0', 'opacity-0', 'pt-0', 'pb-0');
+                        content.classList.add('max-h-[1000px]', 'opacity-100', 'pt-4', 'pb-4');
+                        icon.classList.add('rotate-180');
+                    } else {
+                        content.classList.add('max-h-0', 'opacity-0', 'pt-0', 'pb-0');
+                        content.classList.remove('max-h-[1000px]', 'opacity-100', 'pt-4', 'pb-4');
+                        icon.classList.remove('rotate-180');
+                    }
 
-					accordionItems.forEach((otherItem) => {
-						if (otherItem !== item) {
-							const otherContent = otherItem.querySelector('.accordion-content');
-							const otherIcon = otherItem.querySelector('svg');
-							if (otherContent && otherIcon) {
-								otherContent.classList.remove(
-									'is-open',
-									'max-h-[1000px]',
-									'opacity-100',
-									'pt-4',
-									'pb-4'
-								);
-								otherContent.classList.add('max-h-0', 'opacity-0', 'pt-0', 'pb-0');
-								otherIcon.classList.remove('rotate-180');
-							}
-						}
-					});
-				});
-			}
-		});
-	});
-</script>
+                    accordionItems.forEach((otherItem) => {
+                        if (otherItem !== item) {
+                            const otherContent = otherItem.querySelector('.accordion-content');
+                            const otherIcon = otherItem.querySelector('svg');
+                            if (otherContent && otherIcon) {
+                                otherContent.classList.remove(
+                                    'is-open',
+                                    'max-h-[1000px]',
+                                    'opacity-100',
+                                    'pt-4',
+                                    'pb-4'
+                                );
+                                otherContent.classList.add('max-h-0', 'opacity-0', 'pt-0', 'pb-0');
+                                otherIcon.classList.remove('rotate-180');
+                            }
+                        }
+                    });
+                });
+            }
+        });
+    });
+</script>  
