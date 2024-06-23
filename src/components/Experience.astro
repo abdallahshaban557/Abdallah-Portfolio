@@ -1,25 +1,52 @@
 ---
 const workExperiences = [
-	{
-		company: 'Celest',
-		role: 'Co-Founder and Chief Product Officer',
-		period: 'Nov 2023 - March 2024',
-		responsibilities: [
-			'Drove growth features',
-			'Launched 4G/LTE services',
-			'Boosted e-commerce revenue',
-		],
-	},
-	{
-		company: 'Amazon Web Services',
-		role: 'Sr Product Manager',
-		period: '2014 - 2018',
-		responsibilities: [
-			'Led development of e-commerce platform',
-			'Improved operations efficiency by 30%',
-			'Managed team of 10 developers',
-		],
-	},
+    {
+        company: 'Celest',
+        role: 'Co-Founder & CPO',
+        period: 'Nov 2023 - Mar 2024',
+        responsibilities: [
+            'Launched PaaS for Dart backends',
+            'Raised $527K in funding and participated in Y-Combinator',
+            'Acquired 1,000+ Twitter followers, 500+ LinkedIn, and 800+ waitlist signups',
+            'Closed deals with 12 paying customers',
+            'Created tutorials and participated in podcasts & live streams'
+        ],
+    },
+    {
+        company: 'Amazon Web Services',
+        role: 'Sr. Product Manager - Technical',
+        period: 'Oct 2021 - Nov 2023',
+        responsibilities: [
+            'Led Amplify JS/Flutter SDKs, Auth, Analytics, Notifications',
+            'Delivered In-App Messaging, Push Notifications, Auth/Analytics features (30% YoY growth)',
+            'Improved documentation (25% reduction in open issues)',
+            'Public speaking at podcasts, live streams, and conferences',
+            'Trained Amazon Q code assistant AI'
+        ],
+    },
+    {
+        company: 'Petco',
+        role: 'Sr. Product Manager',
+        period: 'Jan 2017 - Oct 2021',
+        responsibilities: [
+            'Led store employee app development ($3.5M/year savings)',
+            'Hired & managed 3 product managers',
+            'Launched Salesforce/Amazon Connect implementation (5% call deflection)',
+            'Reduced subscription churn by 6% and fulfillment cost by 8%',
+            'Enabled BOPIS, Curbside Pickup, Same Day Delivery, Ship from Store (35% YoY sales increase)'
+        ],
+    },
+    {
+        company: 'Zain',
+        role: 'Product Manager',
+        period: 'Jun 2013 - Aug 2016',
+        responsibilities: [
+            'Launched the first 4G/LTE in Jordan',
+            'Restructured self-service channels (600% YoY user growth)',
+            'Increased digital subscription revenue by 20%',
+            'Revamped project management processes (30% faster delivery)'
+        ],
+    }
 ];
 ---
 
@@ -33,15 +60,15 @@ const workExperiences = [
 			{
 				workExperiences.map((job, index) => (
 					<div
-						class="accordion-item border-orange-500 mb-4 overflow-hidden rounded-xl border-2 transition-all ease-in-out hover:scale-[1.02]"
+						class="accordion-item border-orange mb-4 overflow-hidden rounded-xl border-2 transition-all ease-in-out hover:scale-[1.02] "
 						data-index={index}
 					>
-						<div class="bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer p-4 transition-colors duration-300">
+						<div class=" dark:hover:bg-gray-800 cursor-pointer p-4 transition-colors duration-300">
 							<button class="w-full text-left focus:outline-none">
 								<div class="flex items-center justify-between">
 									<div>
-										<h3 class="text-orange-500 text-xl font-bold">{job.company}</h3>
-										<p class="text-md text-gray-700 dark:text-gray-300">{job.role}</p>
+										<h3 class="text-xl font-bold">{job.company}</h3>
+										<p class="text-md ">{job.role}</p>
 									</div>
 									<svg
 										class="text-orange-500 h-6 w-6 transform transition-transform"
