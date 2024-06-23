@@ -101,7 +101,7 @@ const workExperiences = [
 								</div>
 							</button>
 						</div>
-						<div class="accordion-content mt-2 max-h-0 overflow-hidden rounded-xl pb-0 pt-0 opacity-0 transition-all duration-300 ease-in-out">
+						<div class="accordion-content max-h-0 overflow-hidden rounded-xl opacity-0 transition-all duration-300 ease-in-out">
 							<div class="px-8">
 								<ul class="list-outside list-disc">
 									{job.responsibilities.map((resp) => (
@@ -132,7 +132,7 @@ const workExperiences = [
 
 					if (isOpen) {
 						content.classList.remove('max-h-0', 'opacity-0', 'pt-0', 'pb-0');
-						content.classList.add('max-h-[1000px]', 'opacity-100', 'pt-4', 'pb-4');
+						content.classList.add('max-h-[1000px]', 'opacity-100', 'pb-4');
 						icon.classList.add('rotate-180');
 					} else {
 						content.classList.add('max-h-0', 'opacity-0', 'pt-0', 'pb-0');
