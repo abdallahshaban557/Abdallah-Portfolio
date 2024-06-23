@@ -1,0 +1,50 @@
+---
+const workExperiences = [
+	{
+		company: 'Celest',
+		role: 'Co-Founder and Chief Product Officer',
+		period: 'Nov 2023 - March 2024',
+		responsibilities: [
+			'Drove growth features',
+			'Launched 4G/LTE services',
+			'Boosted e-commerce revenue',
+		],
+	},
+	{
+		company: 'Amazon Web Services',
+		role: 'Sr Product Manager',
+		period: '2014 - 2018',
+		responsibilities: [
+			'Led development of e-commerce platform',
+			'Improved operations efficiency by 30%',
+			'Managed team of 10 developers',
+		],
+	},
+];
+---
+
+<section
+	data-testid="work-experience"
+	class="flex flex-col items-center justify-center text-center lg:my-8"
+>
+	<div class="mb-10 flex w-full flex-col items-center justify-center lg:mb-0 lg:w-1/2">
+		<h2 class="font-monospace text-2xl text-orange lg:text-4xl">Work Experience</h2>
+		<span class="mb-6 ml-2 h-1 w-10 bg-orange"></span>
+	</div>
+	<div class="w-full lg:w-3/4">
+		{
+			workExperiences.map((job) => (
+				<div class="mb-10 text-left">
+					<h3 class="text-2xl font-bold text-orange">{job.company}</h3>
+					<p class="text-xl font-semibold text-black dark:text-white">{job.role}</p>
+					<p class="text-gray-600 dark:text-gray-400 mb-2">{job.period}</p>
+					<ul class="list-inside list-disc text-black dark:text-white">
+						{job.responsibilities.map((resp) => (
+							<li>{resp}</li>
+						))}
+					</ul>
+				</div>
+			))
+		}
+	</div>
+</section>
