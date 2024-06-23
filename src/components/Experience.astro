@@ -23,28 +23,92 @@ const workExperiences = [
 ];
 ---
 
-<section
-	data-testid="work-experience"
-	class="flex flex-col items-center justify-center text-center lg:my-8"
->
+<section class="mb-10 flex flex-col items-center justify-center bg-black py-8 text-white lg:my-16">
 	<div class="mb-10 flex w-full flex-col items-center justify-center lg:mb-0 lg:w-1/2">
 		<h2 class="font-monospace text-2xl text-orange lg:text-4xl">Work Experience</h2>
 		<span class="mb-6 ml-2 h-1 w-10 bg-orange"></span>
 	</div>
-	<div class="w-full lg:w-3/4">
-		{
-			workExperiences.map((job) => (
-				<div class="mb-10 text-left">
-					<h3 class="text-2xl font-bold text-orange">{job.company}</h3>
-					<p class="text-xl font-semibold text-black dark:text-white">{job.role}</p>
-					<p class="text-gray-600 dark:text-gray-400 mb-2">{job.period}</p>
-					<ul class="list-inside list-disc text-black dark:text-white">
-						{job.responsibilities.map((resp) => (
-							<li>{resp}</li>
-						))}
-					</ul>
-				</div>
-			))
-		}
+	<div class="container mx-auto px-4">
+		<div class="mx-auto max-w-2xl">
+			{
+				workExperiences.map((job, index) => (
+					<div class="accordion-item mb-4" data-index={index}>
+						<button class="bg-gray-900 hover:bg-gray-800 flex w-full items-center justify-between rounded-lg p-4 transition-colors duration-300">
+							<div class="text-left">
+								<h3 class="text-orange-500 text-xl font-bold text-orange">{job.company}</h3>
+								<p class="text-gray-400 text-md">{job.role}</p>
+							</div>
+							<svg
+								class="text-orange-500 h-6 w-6 transform transition-transform duration-300"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M19 9l-7 7-7-7"
+								/>
+							</svg>
+						</button>
+						<div class="bg-gray-800 mt-2 hidden rounded-lg p-4">
+							<p class="text-gray-400 mb-2 text-sm">{job.period}</p>
+							<ul class="text-gray-300 list-inside list-disc">
+								{job.responsibilities.map((resp) => (
+									<li class="mb-1">{resp}</li>
+								))}
+							</ul>
+						</div>
+					</div>
+				))
+			}
+		</div>
 	</div>
 </section>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const accordionItems = document.querySelectorAll('.accordion-item');
+
+		accordionItems.forEach((item) => {
+			const button = item.querySelector('button');
+			const content = item.querySelector('div:last-child');
+			const icon = item.querySelector('svg');
+
+			button.addEventListener('click', () => {
+				const isOpen = content.classList.toggle('hidden');
+				icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+
+				// Close other open items
+				accordionItems.forEach((otherItem) => {
+					if (otherItem !== item) {
+						const otherContent = otherItem.querySelector('div:last-child');
+						const otherIcon = otherItem.querySelector('svg');
+						otherContent.classList.add('hidden');
+						otherIcon.style.transform = 'rotate(0deg)';
+					}
+				});
+			});
+		});
+	});
+</script>
+
+<style>
+	.accordion-item button:focus {
+		outline: 2px solid #f97316;
+		outline-offset: 2px;
+	}
+
+	.accordion-item div:last-child {
+		max-height: 0;
+		overflow: hidden;
+		transition: max-height 0.3s ease-out;
+	}
+
+	.accordion-item div:last-child:not(.hidden) {
+		max-height: 1000px; /* Adjust this value based on your content */
+		transition: max-height 0.5s ease-in;
+	}
+</style>
