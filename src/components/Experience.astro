@@ -70,14 +70,14 @@ const workExperiences = [
 						data-index={index}
 					>
 						<div class="dark:hover:bg-gray-800 cursor-pointer p-4 transition-colors duration-300">
-							<button class="w-full text-left focus:outline-none">
+							<button class="w-full text-left">
 								<div class="flex items-center justify-between">
 									<div>
 										<h3 class="text-xl font-bold sm:text-xl">{job.company}</h3>
 										<p class="text-md">{job.role}</p>
 									</div>
-									<div class="flex flex-wrap">
-										<div class="flex flex-wrap justify-end">
+									<div class="flex flex-row items-center">
+										<div class="flex flex-wrap-reverse justify-end">
 											<p class="text-md">{job.startDate}</p>
 											<p class="text-md">&nbsp;/&nbsp;</p>
 											<p class="text-md">{job.endDate}</p>
