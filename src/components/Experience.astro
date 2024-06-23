@@ -77,13 +77,13 @@ const workExperiences = [
 										<p class="text-md">{job.role}</p>
 									</div>
 									<div class="flex flex-wrap">
-										<p class="text-md">{job.startDate}</p>
-										<p class="text-md  ">/</p>
-										<p class="text-md" style="white-space: nowrap;">
-											{job.endDate}
-										</p>
+										<div class="flex flex-wrap justify-end">
+											<p class="text-md">{job.startDate}</p>
+											<p class="text-md">&nbsp;/&nbsp;</p>
+											<p class="text-md">{job.endDate}</p>
+										</div>
 										<svg
-											class="text-orange-500 h-6 w-6 transform ps-2 transition-transform"
+											class="text-orange-500 h-6 w-6 flex-shrink-0 transform ps-2 transition-transform"
 											fill="none"
 											stroke="currentColor"
 											viewBox="0 0 24 24"
