@@ -61,7 +61,7 @@ const workExperiences = [
 		<span class="mb-6 ml-2 h-1 w-10 bg-orange"></span>
 	</div>
 	<!-- Accordion -->
-	<div class="container mx-auto px-4 text-black dark:text-white">
+	<div class="container text-black dark:text-white">
 		<div class="mx-auto max-w-2xl">
 			{
 				workExperiences.map((job, index) => (
@@ -72,12 +72,12 @@ const workExperiences = [
 						<div class="dark:hover:bg-gray-800 cursor-pointer p-4 transition-colors duration-300">
 							<button class="w-full text-left">
 								<div class="flex items-center justify-between">
-									<div>
+									<div class="flex-shrink-0">
 										<h3 class="text-xl font-bold sm:text-xl">{job.company}</h3>
 										<p class="text-md">{job.role}</p>
 									</div>
 									<div class="flex flex-row items-center">
-										<div class="flex flex-wrap-reverse justify-end">
+										<div class="flex flex-wrap justify-end">
 											<p class="text-md">{job.startDate}</p>
 											<p class="text-md">&nbsp;/&nbsp;</p>
 											<p class="text-md">{job.endDate}</p>
