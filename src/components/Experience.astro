@@ -3,7 +3,7 @@ const workExperiences = [
     {
         company: 'Celest',
         role: 'Co-Founder & CPO',
-        period: 'Nov 2023 - Mar 2024',
+        period: 'Nov 2023 / Mar 2024',
         responsibilities: [
             'Launched PaaS for Dart backends',
             'Raised $527K in funding and participated in Y-Combinator',
@@ -13,9 +13,9 @@ const workExperiences = [
         ],
     },
     {
-        company: 'Amazon Web Services',
-        role: 'Sr. Product Manager - Technical',
-        period: 'Oct 2021 - Nov 2023',
+        company: 'AWS',
+        role: 'Sr. Product Manager',
+        period: 'Oct 2021 / Nov 2023',
         responsibilities: [
             'Led Amplify JS/Flutter SDKs, Auth, Analytics, Notifications',
             'Delivered In-App Messaging, Push Notifications, Auth/Analytics features (30% YoY growth)',
@@ -27,7 +27,7 @@ const workExperiences = [
     {
         company: 'Petco',
         role: 'Sr. Product Manager',
-        period: 'Jan 2017 - Oct 2021',
+        period: 'Jan 2017 / Oct 2021',
         responsibilities: [
             'Led store employee app development ($3.5M/year savings)',
             'Hired & managed 3 product managers',
@@ -39,7 +39,7 @@ const workExperiences = [
     {
         company: 'Zain',
         role: 'Product Manager',
-        period: 'Jun 2013 - Aug 2016',
+        period: 'Jun 2013 / Aug 2016',
         responsibilities: [
             'Launched the first 4G/LTE in Jordan',
             'Restructured self-service channels (600% YoY user growth)',
@@ -64,32 +64,35 @@ const workExperiences = [
 						data-index={index}
 					>
 						<div class=" dark:hover:bg-gray-800 cursor-pointer p-4 transition-colors duration-300">
-							<button class="w-full text-left focus:outline-none">
-								<div class="flex items-center justify-between">
-									<div>
-										<h3 class="text-xl font-bold">{job.company}</h3>
-										<p class="text-md ">{job.role}</p>
-									</div>
-									<svg
-										class="text-orange-500 h-6 w-6 transform transition-transform"
-										fill="none"
-										stroke="currentColor"
-										viewBox="0 0 24 24"
-										xmlns="http://www.w3.org/2000/svg"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											stroke-width="2"
-											d="M19 9l-7 7-7-7"
-										/>
-									</svg>
-								</div>
-							</button>
-						</div>
+    <button class="w-full text-left focus:outline-none">
+        <div class="flex items-center justify-between">
+            <div>
+                <h3 class="text-xl sm:text-xl font-bold">{job.company}</h3>
+                <p class="text-md ">{job.role}</p>
+            </div>
+            <div class="flex items-center"> <!-- Added a new flex container -->
+                <p class="text-md mr-2">{job.period}</p> <!-- Moved the date here -->
+                <svg
+                    class="text-orange-500 h-6 w-6 transform transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                    />
+                </svg>
+            </div>
+        </div>
+    </button>
+</div>
 						<div class="accordion-content mt-2 max-h-0 overflow-hidden rounded-xl pb-0 pt-0 opacity-0 transition-all duration-300 ease-in-out">
 							<div class="px-8">
-								<p class="text-md mb-2">{job.period}</p>
+								
 								<ul class="list-outside list-disc">
 									{job.responsibilities.map((resp) => (
 										<li class="mb-1">{resp}</li>
