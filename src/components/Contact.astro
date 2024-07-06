@@ -6,11 +6,14 @@ import Social from '@components/ui/Social.astro';
 <section
 	data-testid="contact"
 	id="contact"
-	class="flex flex-col flex-wrap items-center justify-center gap-8 text-black dark:text-white lg:my-10"
+	class="flex flex-col flex-wrap items-center justify-center text-black dark:text-white lg:my-10"
 >
-	<Button size={'lg'} style={'primary'} name="Contact">Say hello!</Button>
-	<hr class="w-1/2" />
-	<div class="flex flex-col gap-8 lg:flex lg:flex-row lg:gap-20">
+	<!-- <Button size={'lg'} style={'primary'} name="Contact">Say hello!</Button> -->
+	<div class="flex w-full flex-col items-center justify-center lg:mb-5 lg:w-1/2">
+		<h2 class="font-monospace text-2xl text-orange lg:text-4xl">Contact me</h2>
+		<span class="mb-6 ml-2 h-1 w-10 bg-orange"></span>
+	</div>
+	<div class="flex flex-wrap justify-center gap-8 lg:gap-20">
 		<Social />
 	</div>
 </section>
