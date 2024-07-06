@@ -1,5 +1,5 @@
 ---
-import heroImage from '@assets/images/hero.png';
+import heroImage from '@assets/images/abdallah.webp';
 import Button from '@components/ui/Button.astro';
 import { Image } from 'astro:assets';
 
@@ -29,11 +29,12 @@ const resumeDownloadLink = `https://drive.google.com/uc?export=download&id=${res
 	<div data-testid="hero-img" class="mb-10 flex w-1/2 items-center justify-center">
 		<Image
 			src={heroImage}
-			alt="Coding girl"
+			alt="Abdallah Shaban Profile Picture"
 			format="png"
-			width={600}
-			height={600}
+			width={550}
+			height={550}
 			loading="eager"
+			class="rounded-xl"
 		/>
 	</div>
 </section>
