@@ -1,4 +1,6 @@
 ---
+import Header from '@components/ui/Header.astro';
+
 const workExperiences = [
 	{
 		company: 'Celest',
@@ -56,10 +58,7 @@ const workExperiences = [
 
 <section class="mb-10 flex flex-col items-center justify-center py-8 lg:my-16" id="work">
 	<!-- Header -->
-	<div class="mb-10 flex w-full flex-col items-center justify-center lg:w-1/2">
-		<h2 class="font-monospace text-2xl text-orange lg:text-4xl">Work Experience</h2>
-		<span class="mb-6 ml-2 h-1 w-10 bg-orange"></span>
-	</div>
+	<Header header="Work Experience" />
 	<!-- Accordion -->
 	<div class="container text-black dark:text-white">
 		<div class="mx-auto max-w-2xl">
