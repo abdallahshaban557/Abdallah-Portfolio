@@ -11,9 +11,9 @@ type SendEmailOptions = {
 
 export async function sendEmail(options: SendEmailOptions): Promise<void> {
   console.log("inside email.ts");
-  const resend = new Resend(import.meta.env.RESEND_API_KEY);
+  const resend = new Resend(RESEND_API_KEY);
   const { from, subject, html } = options;
-  const sendingEmail = import.meta.env.SEND_EMAIL_FROM;
+  const sendingEmail = SEND_EMAIL_FROM;
 
   try {
     console.log('Sending email...');
