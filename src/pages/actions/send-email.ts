@@ -18,6 +18,8 @@ export const POST: APIRoute = async ({ request }) => {
   // Try to send the email using a `sendEmail` function we'll create next. Throw
   // an error if it fails.
   try {
+    console.log('Sending email...');
+    console.log(import.meta.env.RESEND_API_KEY);
     const html = `<div>${message}</div>`;
     await sendEmail({ from, subject, html });
     return new Response(JSON.stringify({ success: true }), {
