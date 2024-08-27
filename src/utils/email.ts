@@ -11,9 +11,14 @@ type SendEmailOptions = {
 
 export async function sendEmail(options: SendEmailOptions): Promise<void> {
   console.log("inside email.ts");
-  const resend = new Resend(import.meta.env.RESEND_API_KEY);
+  const apiKey = import.meta.env.RESEND_API_KEY || (typeof RESEND_API_KEY !== 'undefined' ? RESEND_API_KEY : undefined);
+  const resend = new Resend(apiKey);
   const { from, subject, html } = options;
-  const sendingEmail = import.meta.env.SEND_EMAIL_FROM;
+  const sendingEmail = import.meta.env.SEND_EMAIL_FROM || (typeof SEND_EMAIL_FROM !== 'undefined' ? SEND_EMAIL_FROM : undefined);
+
+  if (!apiKey || !sendingEmail) {
+    throw new Error('Missing API key or sender email');
+  }
 
   try {
     console.log('Sending email...');
@@ -36,3 +41,4 @@ export async function sendEmail(options: SendEmailOptions): Promise<void> {
     throw error;
   }
 }
+
