@@ -53,6 +53,3 @@ export const POST: APIRoute = async ({ request }) => {
     );
   }
 };
-
-// Add this line to explicitly mark this as a server-side route
-export const partial = true;
