@@ -1,9 +1,36 @@
 ---
-// No server-side code needed here
+import { Resend } from 'resend';
+
+if (Astro.request.method === 'POST') {
+	try {
+		const resend = new Resend(import.meta.env.RESEND_API_KEY);
+		const data = await Astro.request.formData();
+		const name = data.get('username');
+		const email = data.get('email');
+		const password = data.get('password');
+		console.log('form is trying to be submitted');
+		const sendResend = await resend.emails.send({
+			from: 'contact@abdallahshaban.com',
+			to: 'abdallah.w.shaban@gmail.com',
+			subject: `Sumbission from ${name}`,
+			html: `<p>Hi ${name},</p><p>Your message was received.</p>`,
+		}); // If the message was sent successfully, return a 200 response
+
+		if (sendResend.data) {
+			console.log('message sent'); // If there was an error sending the message, return a 500 response
+		} else {
+			console.log('message failed to send');
+		}
+	} catch (error) {
+		if (error instanceof Error) {
+			console.error(error.message);
+		}
+	}
+}
 ---
 
 <div id="email-container">
-	<form id="email-form" class="w-full max-w-3xl">
+	<form id="email-form" method="POST" class="w-full max-w-3xl">
 		<div class="mb-4">
 			<label for="name" class="mb-2 block text-sm font-bold text-black dark:text-white">
 				Name:
@@ -59,7 +86,7 @@
 	</div>
 </div>
 
-<script>
+<!-- <script>
 	const form = document.getElementById('email-form');
 	const successMessage = document.getElementById('success-message');
 	const errorMessage = document.getElementById('error-message');
@@ -90,4 +117,4 @@
 			}
 		});
 	}
-</script>
+</script> -->
