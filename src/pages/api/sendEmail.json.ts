@@ -28,7 +28,7 @@ export const POST: APIRoute = async ({ request }) => {
     from: "contact@abdallahshaban.com",
     to: "abdallah.w.shaban@gmail.com",
     subject: `Sumbission from ${name}`,
-    html: `<p>Hi ${name},</p><p>Your message was received.</p>`,
+    html: `<p>Hi Abdallah,</p><p>Your got a contact from ${name}.</p><p>Message: ${message}</p>`,
   }); // If the message was sent successfully, return a 200 response
 
   if (sendResend.data) {

@@ -1,46 +1,9 @@
 ---
 export const prerender = false;
-
-import { Resend } from 'resend';
-
-let formSubmissionStatus = '';
-
-if (Astro.request.method === 'POST') {
-	console.log('form is trying to be submitted - 0');
-	try {
-		console.log('form is trying to be submitted - 1');
-		const resend = new Resend(import.meta.env.RESEND_API_KEY);
-		const data = await Astro.request.formData();
-		const name = data.get('name');
-		const email = data.get('email');
-		const message = data.get('message');
-		console.log('form is trying to be submitted - 2');
-		const sendResend = await resend.emails.send({
-			from: 'contact@abdallahshaban.com',
-			to: 'abdallah.w.shaban@gmail.com',
-			subject: `Submission from ${name}`,
-			replyTo: email as string,
-			html: `<p>Hi Abdallah,</p><p>You got an email from ${name}.<br> Their email is ${email}.</p><p>Message: ${message}</p>`,
-		});
-
-		if (sendResend.data) {
-			console.log('message sent');
-			formSubmissionStatus = 'success';
-		} else {
-			console.log('message failed to send');
-			formSubmissionStatus = 'error';
-		}
-	} catch (error) {
-		if (error instanceof Error) {
-			console.error(error.message);
-			formSubmissionStatus = 'error';
-		}
-	}
-}
 ---
 
 <div id="email-container">
-	<form id="email-form" method="POST" class="w-full max-w-3xl">
+	<form id="email-form" class="w-full max-w-3xl">
 		<div class="mb-4">
 			<label for="name" class="mb-2 block text-sm font-bold text-black dark:text-white">
 				Name:
@@ -88,10 +51,52 @@ if (Astro.request.method === 'POST') {
 			</button>
 		</div>
 	</form>
-	<div id="success-message" class={formSubmissionStatus === 'success' ? '' : 'hidden'}>
+	<div id="success-message" class="text-green-600 mt-4 hidden">
 		<p>Thank you for your message. It has been sent successfully!</p>
 	</div>
-	<div id="error-message" class={formSubmissionStatus === 'error' ? '' : 'hidden'}>
+	<div id="error-message" class="text-red-600 mt-4 hidden">
 		<p>There was an error sending your message. Please try again.</p>
 	</div>
+	<div id="loading-spinner" class="mt-4 hidden">
+		<div class="h-8 w-8 animate-spin rounded-full border-b-2 border-t-2 border-orange"></div>
+	</div>
 </div>
+
+<script>
+	const form = document.getElementById('email-form');
+	const successMessage = document.getElementById('success-message');
+	const errorMessage = document.getElementById('error-message');
+	const loadingSpinner = document.getElementById('loading-spinner');
+
+	form?.addEventListener('submit', async (e) => {
+		e.preventDefault();
+
+		successMessage?.classList.add('hidden');
+		errorMessage?.classList.add('hidden');
+		loadingSpinner?.classList.remove('hidden');
+
+		const formData = new FormData(form as HTMLFormElement);
+
+		try {
+			const response = await fetch('/api/sendEmail.json', {
+				method: 'POST',
+				body: formData,
+			});
+
+			const result = await response.json();
+
+			loadingSpinner?.classList.add('hidden');
+
+			if (response.ok) {
+				successMessage?.classList.remove('hidden');
+				(form as HTMLFormElement).reset();
+			} else {
+				errorMessage?.classList.remove('hidden');
+			}
+		} catch (error) {
+			console.error('Error:', error);
+			loadingSpinner?.classList.add('hidden');
+			errorMessage?.classList.remove('hidden');
+		}
+	});
+</script>
