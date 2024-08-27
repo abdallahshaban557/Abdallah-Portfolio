@@ -15,6 +15,8 @@ export async function sendEmail(options: SendEmailOptions): Promise<void> {
   const sendingEmail = import.meta.env.SEND_EMAIL_FROM;
 
   try {
+    console.log('Sending email...');
+    console.log(import.meta.env.RESEND_API_KEY);
     const { data, error } = await resend.emails.send({
       from: sendingEmail,
       to: 'abdallah.w.shaban@gmail.com',
