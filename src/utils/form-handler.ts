@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData(form);
 
         try {
-            console.log('Sending email...');
+            console.log('before await...');
             const response = await fetch('/actions/send-email', {
                 method: 'POST',
                 body: formData,
