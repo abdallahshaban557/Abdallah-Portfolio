@@ -32,7 +32,7 @@ export async function sendEmail(options: SendEmailOptions): Promise<void> {
 
     console.log('Email sent successfully:', data);
   } catch (error) {
-    console.error('Error sending email:', error);
+    console.error('Error sending emails:', error);
     throw error;
   }
 }
