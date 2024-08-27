@@ -3,7 +3,7 @@ import { sendEmail } from "../../utils/email";
 
 export const prerender = false;
 
-export const POST: APIRoute = async ({ request, redirect }) => {
+export const POST: APIRoute = async ({ request }) => {
   // Get the form data submitted by the user on the home page
   const formData = await request.formData();
   const from = formData.get("from") as string | null;
@@ -20,11 +20,19 @@ export const POST: APIRoute = async ({ request, redirect }) => {
   try {
     const html = `<div>${message}</div>`;
     await sendEmail({ from, subject, html });
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   } catch (error) {
     console.log(error);
-    throw new Error("Failed to send email");
+    return new Response(JSON.stringify({ success: false, error: 'Failed to send email' }), {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   }
-
-  // Redirect the user to a success page after the email is sent.
-  return redirect("/success");
 };
