@@ -5,15 +5,15 @@ if (Astro.request.method === 'POST') {
 	try {
 		const resend = new Resend(import.meta.env.RESEND_API_KEY);
 		const data = await Astro.request.formData();
-		const name = data.get('username');
+		const name = data.get('name');
 		const email = data.get('email');
-		const password = data.get('password');
 		console.log('form is trying to be submitted');
 		const sendResend = await resend.emails.send({
 			from: 'contact@abdallahshaban.com',
 			to: 'abdallah.w.shaban@gmail.com',
 			subject: `Sumbission from ${name}`,
-			html: `<p>Hi ${name},</p><p>Your message was received.</p>`,
+			replyTo: email as string,
+			html: `<p>Hi Abdallah,</p><p>You got an email from ${name}.<br> Their email is ${email}.</p>`,
 		}); // If the message was sent successfully, return a 200 response
 
 		if (sendResend.data) {
