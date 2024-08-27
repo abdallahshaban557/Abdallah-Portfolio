@@ -1,35 +1,9 @@
 ---
-export const prerender = false;
-
-type FormData = {
-	name: string;
-	email: string;
-	message: string;
-};
-
-if (Astro.request.method === 'POST') {
-	try {
-		const formData = await Astro.request.formData();
-		const response = await fetch(Astro.url + '/api/sendEmail.json', {
-			method: 'POST',
-			body: formData,
-		});
-
-		const data: FormData = await response.json();
-
-		if (response.status === 200) {
-			console.log(data.message);
-		}
-	} catch (error) {
-		if (error instanceof Error) {
-			console.error(`Error: ${error.message}`);
-		}
-	}
-}
+// No server-side code needed here
 ---
 
 <div id="email-container">
-	<form method="POST" id="email-form" class="w-full max-w-3xl">
+	<form id="email-form" class="w-full max-w-3xl">
 		<div class="mb-4">
 			<label for="name" class="mb-2 block text-sm font-bold text-black dark:text-white">
 				Name:
@@ -77,55 +51,42 @@ if (Astro.request.method === 'POST') {
 			</button>
 		</div>
 	</form>
-	<div id="loading-spinner" class="mt-4 hidden text-center">
-		<div
-			class="border-r-transparent inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-orange align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-			role="status"
-		>
-			<span
-				class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
-				>Loading...</span
-			>
-		</div>
+	<div id="success-message" class="hidden">
+		<p>Thank you for your message. It has been sent successfully!</p>
 	</div>
-</div>
-
-<div class="mt-8 flex w-full justify-center">
-	<div id="success-message" class="hidden w-full max-w-3xl text-center">
-		<h2 class="mb-4 text-2xl font-bold text-orange">Thank you for your message!</h2>
-		<p class="text-black dark:text-white">
-			I have received your email and will get back to you as soon as possible.
-		</p>
+	<div id="error-message" class="hidden">
+		<p>There was an error sending your message. Please try again.</p>
 	</div>
 </div>
 
 <script>
-	document.addEventListener('DOMContentLoaded', () => {
-		const form = document.getElementById('email-form') as HTMLFormElement;
-		const loadingSpinner = document.getElementById('loading-spinner');
-		const successMessage = document.getElementById('success-message');
-		const emailContainer = document.getElementById('email-container');
+	const form = document.getElementById('email-form');
+	const successMessage = document.getElementById('success-message');
+	const errorMessage = document.getElementById('error-message');
+	if (form) {
+		form.addEventListener('submit', async (e) => {
+			e.preventDefault();
 
-		if (form && loadingSpinner && successMessage && emailContainer) {
-			form.addEventListener('submit', (e) => {
-				loadingSpinner.classList.remove('hidden');
-				emailContainer.classList.add('opacity-50');
-			});
+			const formData = new FormData(form as HTMLFormElement);
 
-			window.addEventListener('load', () => {
-				const urlParams = new URLSearchParams(window.location.search);
-				const status = urlParams.get('status');
+			try {
+				const response = await fetch('/api/sendEmail.json', {
+					method: 'POST',
+					body: formData,
+				});
 
-				if (status === 'success') {
-					emailContainer.classList.add('hidden');
-					successMessage.classList.remove('hidden');
-				} else if (status === 'error') {
-					alert('An error occurred while sending the email. Please try again later.');
+				const data = await response.json();
+
+				if (response.ok) {
+					form?.classList.add('hidden');
+					successMessage?.classList.remove('hidden');
+				} else {
+					throw new Error(data.message || 'Failed to send message');
 				}
-
-				loadingSpinner.classList.add('hidden');
-				emailContainer.classList.remove('opacity-50');
-			});
-		}
-	});
+			} catch (error) {
+				console.error('Error:', error);
+				errorMessage?.classList.remove('hidden');
+			}
+		});
+	}
 </script>

@@ -1,0 +1,27 @@
+---
+export const prerender = false;
+
+if (Astro.request.method === 'POST') {
+	try {
+		const formData = await Astro.request.formData();
+		const response = await fetch(Astro.url.origin + '/api/sendEmail.json', {
+			method: 'POST',
+			body: formData,
+		});
+
+		const data = await response.json();
+
+		if (response.status === 200) {
+			return Astro.redirect('/?status=success');
+		} else {
+			return Astro.redirect('/?status=error');
+		}
+	} catch (error) {
+		console.error(`Error: ${error instanceof Error ? error.message : String(error)}`);
+		return Astro.redirect('/?status=error');
+	}
+}
+
+// If not a POST request, redirect back to the form
+return Astro.redirect('/');
+---

@@ -24,8 +24,8 @@ export const POST: APIRoute = async ({ request }) => {
   } // Sending information to Resend
 
   const sendResend = await resend.emails.send({
-    from: "support@resend.dev",
-    to: "delivered@resend.dev",
+    from: "contact@abdallahshaban.com",
+    to: "abdallah.w.shaban@gmail.com",
     subject: `Sumbission from ${name}`,
     html: `<p>Hi ${name},</p><p>Your message was received.</p>`,
   }); // If the message was sent successfully, return a 200 response
@@ -43,7 +43,7 @@ export const POST: APIRoute = async ({ request }) => {
   } else {
     return new Response(
       JSON.stringify({
-        message: `Message failed to send: }`,
+        message: `Message failed to send: `,
       }),
       {
         status: 500,
@@ -52,3 +52,6 @@ export const POST: APIRoute = async ({ request }) => {
     );
   }
 };
+
+// Add this line to explicitly mark this as a server-side route
+export const partial = true;
