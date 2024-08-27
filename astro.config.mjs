@@ -14,10 +14,8 @@ export default defineConfig({
       mdi: ['*']
     }
   }), sitemap()],
-  image: {
-    service: { entrypoint: 'astro/assets/services/squoosh' },
-  },
-  adapter: cloudflare(),
+
+  adapter: cloudflare({ imageService: 'cloudflare' }),
   vite: {
     ssr: {
       noExternal: ['resend']
