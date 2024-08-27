@@ -5,6 +5,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import cloudflare from "@astrojs/cloudflare";
 
+// https://astro.build/config
 export default defineConfig({
   output: 'server',
   site: 'https://abdallahshaban.com',
@@ -13,11 +14,7 @@ export default defineConfig({
       mdi: ['*']
     }
   }), sitemap()],
-
-  adapter: cloudflare({
-    mode: 'directory',
-    imageService: 'cloudflare'
-  }),
+  adapter: cloudflare({ imageService: 'cloudflare' }),
   vite: {
     ssr: {
       noExternal: ['resend']
