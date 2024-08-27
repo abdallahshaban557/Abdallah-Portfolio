@@ -7,7 +7,7 @@ import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'server',
+  output: 'hybrid',
   site: 'https://abdallahshaban.com',
   integrations: [tailwind(), mdx(), icon({
     include: {
