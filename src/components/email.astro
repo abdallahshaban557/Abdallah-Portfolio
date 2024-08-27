@@ -2,6 +2,7 @@
 import { Resend } from 'resend';
 
 if (Astro.request.method === 'POST') {
+	console.log('form is trying to be submitted - 0');
 	try {
 		console.log('form is trying to be submitted - 1');
 		const resend = new Resend(import.meta.env.RESEND_API_KEY);
