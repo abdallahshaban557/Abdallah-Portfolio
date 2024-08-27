@@ -5,6 +5,8 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import cloudflare from "@astrojs/cloudflare";
 
+import vercel from "@astrojs/vercel/serverless";
+
 // https://astro.build/config
 export default defineConfig({
   output: 'server',
@@ -14,7 +16,7 @@ export default defineConfig({
       mdi: ['*']
     }
   }), sitemap()],
-  adapter: cloudflare({ imageService: 'cloudflare' }),
+  adapter: vercel(),
   vite: {
     ssr: {
       noExternal: ['resend']
