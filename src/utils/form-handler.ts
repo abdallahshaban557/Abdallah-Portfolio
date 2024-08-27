@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 successMessage.classList.remove('hidden');
             } else {
                 console.error('Form submission failed');
+                console.log(response);
                 // Handle error (e.g., show an error message to the user)
             }
         } catch (error) {
