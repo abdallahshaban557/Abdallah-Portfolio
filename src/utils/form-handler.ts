@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             console.log('before await...');
-            const response = await fetch('/actions/send-email', {
+            const response = await fetch('actions/send-email', {
                 method: 'POST',
                 body: formData,
             });
