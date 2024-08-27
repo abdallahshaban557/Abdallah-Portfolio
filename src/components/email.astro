@@ -1,43 +1,42 @@
-<div id="email-container">
-	<form action="/actions/send-email" method="POST" id="email-form" class="w-full max-w-3xl">
+---
+export const prerender = false;
+---
+
+<div id="email-container" class="relative">
+	<form id="email-form" class="w-full max-w-3xl">
 		<div class="mb-4">
-			<label for="send-email__from" class="mb-2 block text-sm font-bold text-black dark:text-white">
-				From:
+			<label for="name" class="mb-2 block text-sm font-bold text-black dark:text-white">
+				Name:
+			</label>
+			<input
+				type="text"
+				name="name"
+				id="name"
+				required
+				class="w-full rounded-xl border-2 border-orange bg-white px-3 py-2 text-sm text-black focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange dark:bg-black dark:text-white"
+				placeholder="Your name"
+			/>
+		</div>
+		<div class="mb-4">
+			<label for="email" class="mb-2 block text-sm font-bold text-black dark:text-white">
+				Email:
 			</label>
 			<input
 				type="email"
-				name="from"
-				id="send-email__from"
+				name="email"
+				id="email"
 				required
 				class="w-full rounded-xl border-2 border-orange bg-white px-3 py-2 text-sm text-black focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange dark:bg-black dark:text-white"
 				placeholder="Your email address"
 			/>
 		</div>
 		<div class="mb-4">
-			<label
-				for="send-email__subject"
-				class="mb-2 block text-sm font-bold text-black dark:text-white"
-			>
-				Subject:
-			</label>
-			<input
-				type="text"
-				name="subject"
-				id="send-email__subject"
-				required
-				class="w-full rounded-xl border-2 border-orange bg-white px-3 py-2 text-sm text-black focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange dark:bg-black dark:text-white"
-			/>
-		</div>
-		<div class="mb-4">
-			<label
-				for="send-email__message"
-				class="mb-2 block text-sm font-bold text-black dark:text-white"
-			>
+			<label for="message" class="mb-2 block text-sm font-bold text-black dark:text-white">
 				Message:
 			</label>
 			<textarea
 				name="message"
-				id="send-email__message"
+				id="message"
 				required
 				rows="4"
 				class="w-full rounded-xl border-2 border-orange bg-white px-3 py-2 text-sm text-black focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange dark:bg-black dark:text-white"
@@ -52,55 +51,56 @@
 			</button>
 		</div>
 	</form>
-	<div id="loading-spinner" class="mt-4 hidden text-center">
-		<div
-			class="border-r-transparent inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-orange align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-			role="status"
-		>
-			<span
-				class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
-				>Loading...</span
-			>
+	<div id="success-message" class="text-green-600 mt-4 hidden">
+		<p>Thank you for contacting me. I will reach out as soon as possible!</p>
+	</div>
+	<div id="error-message" class="text-red-600 mt-4 hidden">
+		<p>There was an error sending your message. Please try again.</p>
+	</div>
+	<div
+		id="loading-overlay"
+		class="absolute inset-0 flex hidden items-center justify-center bg-orange bg-opacity-10 backdrop-blur-sm dark:bg-white dark:bg-opacity-5"
+	>
+		<div class="border-t-transparent h-12 w-12 animate-spin rounded-full border-4 border-orange">
 		</div>
 	</div>
 </div>
 
-<div class="mt-8 flex w-full justify-center">
-	<div id="success-message" class="hidden w-full max-w-3xl text-center">
-		<h2 class="mb-4 text-2xl font-bold text-orange">Thank you for your message!</h2>
-		<p class="text-black dark:text-white">
-			I have received your email and will get back to you as soon as possible.
-		</p>
-	</div>
-</div>
-
 <script>
-	document.addEventListener('DOMContentLoaded', () => {
-		const form = document.getElementById('email-form') as HTMLFormElement;
-		const loadingSpinner = document.getElementById('loading-spinner');
-		const successMessage = document.getElementById('success-message');
-		const emailContainer = document.getElementById('email-container');
+	const form = document.getElementById('email-form');
+	const successMessage = document.getElementById('success-message');
+	const errorMessage = document.getElementById('error-message');
+	const loadingOverlay = document.getElementById('loading-overlay');
 
-		if (form && loadingSpinner && successMessage && emailContainer) {
-			form.addEventListener('submit', (e) => {
-				loadingSpinner.classList.remove('hidden');
-				emailContainer.classList.add('opacity-50');
+	form?.addEventListener('submit', async (e) => {
+		e.preventDefault();
+
+		successMessage?.classList.add('hidden');
+		errorMessage?.classList.add('hidden');
+		loadingOverlay?.classList.remove('hidden');
+
+		const formData = new FormData(form as HTMLFormElement);
+
+		try {
+			const response = await fetch('/api/sendEmail.json', {
+				method: 'POST',
+				body: formData,
 			});
 
-			window.addEventListener('load', () => {
-				const urlParams = new URLSearchParams(window.location.search);
-				const status = urlParams.get('status');
+			const result = await response.json();
 
-				if (status === 'success') {
-					emailContainer.classList.add('hidden');
-					successMessage.classList.remove('hidden');
-				} else if (status === 'error') {
-					alert('An error occurred while sending the email. Please try again later.');
-				}
+			loadingOverlay?.classList.add('hidden');
 
-				loadingSpinner.classList.add('hidden');
-				emailContainer.classList.remove('opacity-50');
-			});
+			if (response.ok) {
+				form?.classList.add('hidden'); // Hide the form
+				successMessage?.classList.remove('hidden');
+			} else {
+				errorMessage?.classList.remove('hidden');
+			}
+		} catch (error) {
+			console.error('Error:', error);
+			loadingOverlay?.classList.add('hidden');
+			errorMessage?.classList.remove('hidden');
 		}
 	});
 </script>
