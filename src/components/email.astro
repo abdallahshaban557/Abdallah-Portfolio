@@ -1,7 +1,7 @@
 ---
 export const prerender = false;
 
-type formData = {
+type FormData = {
 	name: string;
 	email: string;
 	message: string;
@@ -15,7 +15,7 @@ if (Astro.request.method === 'POST') {
 			body: formData,
 		});
 
-		const data: formData = await response.json();
+		const data: FormData = await response.json();
 
 		if (response.status === 200) {
 			console.log(data.message);

@@ -24,7 +24,7 @@ export const POST: APIRoute = async ({ request }) => {
   } // Sending information to Resend
 
   const sendResend = await resend.emails.send({
-    from: "contact@abdallahshaban.com",
+    from: "support@resend.dev",
     to: "delivered@resend.dev",
     subject: `Sumbission from ${name}`,
     html: `<p>Hi ${name},</p><p>Your message was received.</p>`,
@@ -43,11 +43,11 @@ export const POST: APIRoute = async ({ request }) => {
   } else {
     return new Response(
       JSON.stringify({
-        message: `Message failed to send: ${sendResend.error}`,
+        message: `Message failed to send: }`,
       }),
       {
         status: 500,
-        statusText: `Internal Server Error: ${sendResend.error}`,
+        statusText: `Internal Server Error:`,
       },
     );
   }
