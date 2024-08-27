@@ -2,6 +2,7 @@
 import Button from '@components/ui/Button.astro';
 import Social from '@components/ui/Social.astro';
 import Header from '@components/ui/Header.astro';
+import Email from './email.astro';
 ---
 
 <section
@@ -10,6 +11,9 @@ import Header from '@components/ui/Header.astro';
 	class="flex flex-col flex-wrap items-center justify-center text-black dark:text-white lg:my-10"
 >
 	<Header header="Contact Me" />
+	<div class="container mx-auto max-w-xl pb-10 md:max-w-md lg:max-w-md">
+		<Email />
+	</div>
 	<div class="flex flex-wrap justify-center gap-8 lg:gap-20">
 		<Social />
 	</div>

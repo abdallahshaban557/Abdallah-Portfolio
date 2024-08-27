@@ -1,0 +1,53 @@
+<form action="/actions/send-email" method="post" class="w-full max-w-3xl">
+	<div class="mb-4">
+		<label for="send-email__from" class="mb-2 block text-sm font-bold text-black dark:text-white">
+			From:
+		</label>
+		<input
+			type="email"
+			name="from"
+			id="send-email__from"
+			required
+			class="w-full rounded-xl border-2 border-orange bg-white px-3 py-2 text-sm text-black focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange dark:bg-black dark:text-white"
+			placeholder="Your email address"
+		/>
+	</div>
+	<div class="mb-4">
+		<label
+			for="send-email__subject"
+			class="mb-2 block text-sm font-bold text-black dark:text-white"
+		>
+			Subject:
+		</label>
+		<input
+			type="text"
+			name="subject"
+			id="send-email__subject"
+			required
+			class="w-full rounded-xl border-2 border-orange bg-white px-3 py-2 text-sm text-black focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange dark:bg-black dark:text-white"
+		/>
+	</div>
+	<div class="mb-4">
+		<label
+			for="send-email__message"
+			class="mb-2 block text-sm font-bold text-black dark:text-white"
+		>
+			Message:
+		</label>
+		<textarea
+			name="message"
+			id="send-email__message"
+			required
+			rows="4"
+			class="w-full rounded-xl border-2 border-orange bg-white px-3 py-2 text-sm text-black focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange dark:bg-black dark:text-white"
+		></textarea>
+	</div>
+	<div class="flex justify-center">
+		<button
+			type="submit"
+			class="rounded-xl bg-orange px-4 py-2 text-sm font-bold text-white transition duration-300 hover:bg-black dark:hover:bg-white dark:hover:text-black"
+		>
+			Send message
+		</button>
+	</div>
+</form>

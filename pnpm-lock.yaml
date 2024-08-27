@@ -17,6 +17,9 @@ dependencies:
   '@astrojs/ts-plugin':
     specifier: ^1.8.0
     version: 1.8.0
+  '@types/nodemailer':
+    specifier: ^6.4.15
+    version: 6.4.15
   astro:
     specifier: ^4.10.3
     version: 4.10.3(typescript@5.4.5)
@@ -29,6 +32,9 @@ dependencies:
   astro-seo:
     specifier: ^0.8.3
     version: 0.8.4(prettier-plugin-astro@0.13.0)(prettier@3.3.2)(typescript@5.4.5)
+  nodemailer:
+    specifier: ^6.9.14
+    version: 6.9.14
   posthog-js:
     specifier: ^1.139.3
     version: 1.139.3
@@ -1320,6 +1326,12 @@ packages:
     resolution: {integrity: sha512-aoRR+fJkZT2l0aGOJhuA8frnCSoNX6W7U2mpNq63+BxBIj5BQFt8rHy627kijCmm63ijdSdwvGgpUsU6MBsZZA==}
     dependencies:
       undici-types: 5.26.5
+    dev: false
+
+  /@types/nodemailer@6.4.15:
+    resolution: {integrity: sha512-0EBJxawVNjPkng1zm2vopRctuWVCxk34JcIlRuXSf54habUWdz1FB7wHDqOqvDa8Mtpt0Q3LTXQkAs2LNyK5jQ==}
+    dependencies:
+      '@types/node': 20.14.5
     dev: false
 
   /@types/sax@1.2.7:
@@ -3603,6 +3615,11 @@ packages:
 
   /node-releases@2.0.14:
     resolution: {integrity: sha512-y10wOWt8yZpqXmOgRo77WaHEmhYQYGNA6y421PKsKYWEK8aW+cqAphborZDhqfyKrbZEN92CN1X2KbafY2s7Yw==}
+    dev: false
+
+  /nodemailer@6.9.14:
+    resolution: {integrity: sha512-Dobp/ebDKBvz91sbtRKhcznLThrKxKt97GI2FAlAyy+fk19j73Uz3sBXolVtmcXjaorivqsbbbjDY+Jkt4/bQA==}
+    engines: {node: '>=6.0.0'}
     dev: false
 
   /normalize-path@3.0.0:

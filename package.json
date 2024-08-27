@@ -15,10 +15,12 @@
 		"@astrojs/sitemap": "^3.1.6",
 		"@astrojs/tailwind": "^5.1.0",
 		"@astrojs/ts-plugin": "^1.8.0",
+		"@types/nodemailer": "^6.4.15",
 		"astro": "^4.10.3",
 		"astro-icon": "^1.1.0",
 		"astro-navbar": "^2.3.1",
 		"astro-seo": "^0.8.3",
+		"nodemailer": "^6.9.14",
 		"posthog-js": "^1.139.3",
 		"tailwindcss": "^3.4.3"
 	},
