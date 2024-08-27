@@ -1,43 +1,68 @@
+---
+export const prerender = false;
+
+type formData = {
+	name: string;
+	email: string;
+	message: string;
+};
+
+if (Astro.request.method === 'POST') {
+	try {
+		const formData = await Astro.request.formData();
+		const response = await fetch(Astro.url + '/api/sendEmail.json', {
+			method: 'POST',
+			body: formData,
+		});
+
+		const data: formData = await response.json();
+
+		if (response.status === 200) {
+			console.log(data.message);
+		}
+	} catch (error) {
+		if (error instanceof Error) {
+			console.error(`Error: ${error.message}`);
+		}
+	}
+}
+---
+
 <div id="email-container">
-	<form action="/actions/send-email" method="POST" id="email-form" class="w-full max-w-3xl">
+	<form method="POST" id="email-form" class="w-full max-w-3xl">
 		<div class="mb-4">
-			<label for="send-email__from" class="mb-2 block text-sm font-bold text-black dark:text-white">
-				From:
+			<label for="name" class="mb-2 block text-sm font-bold text-black dark:text-white">
+				Name:
+			</label>
+			<input
+				type="text"
+				name="name"
+				id="name"
+				required
+				class="w-full rounded-xl border-2 border-orange bg-white px-3 py-2 text-sm text-black focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange dark:bg-black dark:text-white"
+				placeholder="Your name"
+			/>
+		</div>
+		<div class="mb-4">
+			<label for="email" class="mb-2 block text-sm font-bold text-black dark:text-white">
+				Email:
 			</label>
 			<input
 				type="email"
-				name="from"
-				id="send-email__from"
+				name="email"
+				id="email"
 				required
 				class="w-full rounded-xl border-2 border-orange bg-white px-3 py-2 text-sm text-black focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange dark:bg-black dark:text-white"
 				placeholder="Your email address"
 			/>
 		</div>
 		<div class="mb-4">
-			<label
-				for="send-email__subject"
-				class="mb-2 block text-sm font-bold text-black dark:text-white"
-			>
-				Subject:
-			</label>
-			<input
-				type="text"
-				name="subject"
-				id="send-email__subject"
-				required
-				class="w-full rounded-xl border-2 border-orange bg-white px-3 py-2 text-sm text-black focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange dark:bg-black dark:text-white"
-			/>
-		</div>
-		<div class="mb-4">
-			<label
-				for="send-email__message"
-				class="mb-2 block text-sm font-bold text-black dark:text-white"
-			>
+			<label for="message" class="mb-2 block text-sm font-bold text-black dark:text-white">
 				Message:
 			</label>
 			<textarea
 				name="message"
-				id="send-email__message"
+				id="message"
 				required
 				rows="4"
 				class="w-full rounded-xl border-2 border-orange bg-white px-3 py-2 text-sm text-black focus:border-orange focus:outline-none focus:ring-2 focus:ring-orange dark:bg-black dark:text-white"
