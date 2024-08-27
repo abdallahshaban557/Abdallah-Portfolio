@@ -1,5 +1,5 @@
 <div id="email-container">
-	<form id="email-form" class="w-full max-w-3xl">
+	<form action="/actions/send-email" method="POST" id="email-form" class="w-full max-w-3xl">
 		<div class="mb-4">
 			<label for="send-email__from" class="mb-2 block text-sm font-bold text-black dark:text-white">
 				From:
@@ -82,38 +82,24 @@
 		const emailContainer = document.getElementById('email-container');
 
 		if (form && loadingSpinner && successMessage && emailContainer) {
-			form.addEventListener('submit', async (e) => {
-				e.preventDefault();
+			form.addEventListener('submit', (e) => {
 				loadingSpinner.classList.remove('hidden');
 				emailContainer.classList.add('opacity-50');
+			});
 
-				const formData = new FormData(form);
+			window.addEventListener('load', () => {
+				const urlParams = new URLSearchParams(window.location.search);
+				const status = urlParams.get('status');
 
-				try {
-					console.log('Sending email...');
-					const response = await fetch('/actions/send-email', {
-						method: 'POST',
-						body: formData,
-					});
-
-					if (response.ok) {
-						const result = await response.json();
-						if (result.success) {
-							emailContainer.classList.add('hidden');
-							successMessage.classList.remove('hidden');
-						} else {
-							throw new Error(result.error || 'Form submission failed');
-						}
-					} else {
-						throw new Error('Form submission failed');
-					}
-				} catch (error) {
-					console.error('Error:', error);
+				if (status === 'success') {
+					emailContainer.classList.add('hidden');
+					successMessage.classList.remove('hidden');
+				} else if (status === 'error') {
 					alert('An error occurred while sending the email. Please try again later.');
-				} finally {
-					loadingSpinner.classList.add('hidden');
-					emailContainer.classList.remove('opacity-50');
 				}
+
+				loadingSpinner.classList.add('hidden');
+				emailContainer.classList.remove('opacity-50');
 			});
 		}
 	});
