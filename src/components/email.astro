@@ -3,11 +3,12 @@ import { Resend } from 'resend';
 
 if (Astro.request.method === 'POST') {
 	try {
+		console.log('form is trying to be submitted - 1');
 		const resend = new Resend(import.meta.env.RESEND_API_KEY);
 		const data = await Astro.request.formData();
 		const name = data.get('name');
 		const email = data.get('email');
-		console.log('form is trying to be submitted');
+		console.log('form is trying to be submitted - 2');
 		const sendResend = await resend.emails.send({
 			from: 'contact@abdallahshaban.com',
 			to: 'abdallah.w.shaban@gmail.com',
