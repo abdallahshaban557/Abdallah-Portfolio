@@ -1,9 +1,8 @@
 import mdx from '@astrojs/mdx';
 import tailwind from '@astrojs/tailwind';
 import icon from 'astro-icon';
-import { defineConfig, squooshImageService } from 'astro/config';
+import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
-
 import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
@@ -16,7 +15,7 @@ export default defineConfig({
     }
   }), sitemap()],
   image: {
-    service: squooshImageService()
+    service: { entrypoint: 'astro/assets/services/squoosh' },
   },
   adapter: cloudflare(),
   vite: {
