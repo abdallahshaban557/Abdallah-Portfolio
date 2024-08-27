@@ -1,7 +1,7 @@
 import { createTransport, type Transporter } from "nodemailer";
 
 type SendEmailOptions = {
-  /** Email address of the recipient */
+  /** Email address of the sender */
   from: string;
   /** Subject line of the email */
   subject: string;
@@ -15,7 +15,13 @@ export async function sendEmail(options: SendEmailOptions): Promise<Transporter>
     // Build the email message
     const { from, subject, html } = options;
     const sendingEmail = import.meta.env.SEND_EMAIL_FROM;
-    const message = { to: 'abdallah.w.shaban@gmail.com', subject, html, from: sendingEmail };
+    const message = { 
+      to: 'abdallah.w.shaban@gmail.com', 
+      subject, 
+      html, 
+      from: sendingEmail,
+      replyTo: from // Add the "from" email as the reply-to address
+    };
     // Send the email
     transporter.sendMail(message, (err, info) => {
       // Log the error if one occurred
