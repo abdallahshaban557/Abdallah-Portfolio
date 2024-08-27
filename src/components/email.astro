@@ -2,7 +2,7 @@
 export const prerender = false;
 ---
 
-<div id="email-container">
+<div id="email-container" class="relative">
 	<form id="email-form" class="w-full max-w-3xl">
 		<div class="mb-4">
 			<label for="name" class="mb-2 block text-sm font-bold text-black dark:text-white">
@@ -52,13 +52,17 @@ export const prerender = false;
 		</div>
 	</form>
 	<div id="success-message" class="text-green-600 mt-4 hidden">
-		<p>Thank you for your message. It has been sent successfully!</p>
+		<p>Thank you for contacting me. I will reach out as soon as possible!</p>
 	</div>
 	<div id="error-message" class="text-red-600 mt-4 hidden">
 		<p>There was an error sending your message. Please try again.</p>
 	</div>
-	<div id="loading-spinner" class="mt-4 hidden">
-		<div class="h-8 w-8 animate-spin rounded-full border-b-2 border-t-2 border-orange"></div>
+	<div
+		id="loading-overlay"
+		class="absolute inset-0 flex hidden items-center justify-center bg-orange bg-opacity-10 backdrop-blur-sm dark:bg-white dark:bg-opacity-5"
+	>
+		<div class="border-t-transparent h-12 w-12 animate-spin rounded-full border-4 border-orange">
+		</div>
 	</div>
 </div>
 
@@ -66,14 +70,14 @@ export const prerender = false;
 	const form = document.getElementById('email-form');
 	const successMessage = document.getElementById('success-message');
 	const errorMessage = document.getElementById('error-message');
-	const loadingSpinner = document.getElementById('loading-spinner');
+	const loadingOverlay = document.getElementById('loading-overlay');
 
 	form?.addEventListener('submit', async (e) => {
 		e.preventDefault();
 
 		successMessage?.classList.add('hidden');
 		errorMessage?.classList.add('hidden');
-		loadingSpinner?.classList.remove('hidden');
+		loadingOverlay?.classList.remove('hidden');
 
 		const formData = new FormData(form as HTMLFormElement);
 
@@ -85,17 +89,17 @@ export const prerender = false;
 
 			const result = await response.json();
 
-			loadingSpinner?.classList.add('hidden');
+			loadingOverlay?.classList.add('hidden');
 
 			if (response.ok) {
+				form?.classList.add('hidden'); // Hide the form
 				successMessage?.classList.remove('hidden');
-				(form as HTMLFormElement).reset();
 			} else {
 				errorMessage?.classList.remove('hidden');
 			}
 		} catch (error) {
 			console.error('Error:', error);
-			loadingSpinner?.classList.add('hidden');
+			loadingOverlay?.classList.add('hidden');
 			errorMessage?.classList.remove('hidden');
 		}
 	});
