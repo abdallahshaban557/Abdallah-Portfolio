@@ -52,6 +52,17 @@
 			</button>
 		</div>
 	</form>
+	<div id="loading-spinner" class="mt-4 hidden text-center">
+		<div
+			class="border-r-transparent inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-orange align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+			role="status"
+		>
+			<span
+				class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+				>Loading...</span
+			>
+		</div>
+	</div>
 </div>
 
 <div class="mt-8 flex w-full justify-center">
@@ -62,3 +73,43 @@
 		</p>
 	</div>
 </div>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const form = document.getElementById('email-form') as HTMLFormElement;
+		const loadingSpinner = document.getElementById('loading-spinner');
+		const successMessage = document.getElementById('success-message');
+		const emailContainer = document.getElementById('email-container');
+
+		if (form && loadingSpinner && successMessage && emailContainer) {
+			form.addEventListener('submit', async (e) => {
+				e.preventDefault();
+				loadingSpinner.classList.remove('hidden');
+				emailContainer.classList.add('opacity-50');
+
+				const formData = new FormData(form);
+
+				try {
+					const response = await fetch('/actions/send-email', {
+						method: 'POST',
+						body: formData,
+					});
+
+					if (response.ok) {
+						emailContainer.classList.add('hidden');
+						successMessage.classList.remove('hidden');
+					} else {
+						console.error('Form submission failed');
+						// Handle error (e.g., show an error message to the user)
+					}
+				} catch (error) {
+					console.error('Error:', error);
+					// Handle error (e.g., show an error message to the user)
+				} finally {
+					loadingSpinner.classList.add('hidden');
+					emailContainer.classList.remove('opacity-50');
+				}
+			});
+		}
+	});
+</script>
