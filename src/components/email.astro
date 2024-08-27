@@ -70,11 +70,12 @@
 			const formData = new FormData(form as HTMLFormElement);
 
 			try {
+				console.log('Form submitted - before fetch');
 				const response = await fetch('/api/sendEmail.json', {
 					method: 'POST',
 					body: formData,
 				});
-
+				console.log('Form submitted - after fetch');
 				const data = await response.json();
 
 				if (response.ok) {
