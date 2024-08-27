@@ -3,6 +3,8 @@ export const prerender = false;
 
 import { Resend } from 'resend';
 
+let formSubmissionStatus = '';
+
 if (Astro.request.method === 'POST') {
 	console.log('form is trying to be submitted - 0');
 	try {
@@ -11,23 +13,27 @@ if (Astro.request.method === 'POST') {
 		const data = await Astro.request.formData();
 		const name = data.get('name');
 		const email = data.get('email');
+		const message = data.get('message');
 		console.log('form is trying to be submitted - 2');
 		const sendResend = await resend.emails.send({
 			from: 'contact@abdallahshaban.com',
 			to: 'abdallah.w.shaban@gmail.com',
-			subject: `Sumbission from ${name}`,
+			subject: `Submission from ${name}`,
 			replyTo: email as string,
-			html: `<p>Hi Abdallah,</p><p>You got an email from ${name}.<br> Their email is ${email}.</p>`,
-		}); // If the message was sent successfully, return a 200 response
+			html: `<p>Hi Abdallah,</p><p>You got an email from ${name}.<br> Their email is ${email}.</p><p>Message: ${message}</p>`,
+		});
 
 		if (sendResend.data) {
-			console.log('message sent'); // If there was an error sending the message, return a 500 response
+			console.log('message sent');
+			formSubmissionStatus = 'success';
 		} else {
 			console.log('message failed to send');
+			formSubmissionStatus = 'error';
 		}
 	} catch (error) {
 		if (error instanceof Error) {
 			console.error(error.message);
+			formSubmissionStatus = 'error';
 		}
 	}
 }
@@ -82,43 +88,48 @@ if (Astro.request.method === 'POST') {
 			</button>
 		</div>
 	</form>
-	<div id="success-message" class="hidden">
+	<div id="success-message" class={formSubmissionStatus === 'success' ? '' : 'hidden'}>
 		<p>Thank you for your message. It has been sent successfully!</p>
 	</div>
-	<div id="error-message" class="hidden">
+	<div id="error-message" class={formSubmissionStatus === 'error' ? '' : 'hidden'}>
 		<p>There was an error sending your message. Please try again.</p>
 	</div>
 </div>
 
-<!-- <script>
-	const form = document.getElementById('email-form');
-	const successMessage = document.getElementById('success-message');
-	const errorMessage = document.getElementById('error-message');
-	if (form) {
-		form.addEventListener('submit', async (e) => {
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const form = document.getElementById('email-form');
+		const successMessage = document.getElementById('success-message');
+		const errorMessage = document.getElementById('error-message');
+
+		form?.addEventListener('submit', async (e) => {
 			e.preventDefault();
 
-			const formData = new FormData(form as HTMLFormElement);
+			if (!(form instanceof HTMLFormElement)) {
+				console.error('Form is not an HTMLFormElement');
+				return;
+			}
+
+			const formData = new FormData(form);
 
 			try {
-				console.log('Form submitted - before fetch');
-				const response = await fetch('/api/sendEmail.json', {
+				const response = await fetch('', {
 					method: 'POST',
 					body: formData,
 				});
-				console.log('Form submitted - after fetch');
-				const data = await response.json();
 
 				if (response.ok) {
-					form?.classList.add('hidden');
+					form.reset();
 					successMessage?.classList.remove('hidden');
+					errorMessage?.classList.add('hidden');
 				} else {
-					throw new Error(data.message || 'Failed to send message');
+					throw new Error('Form submission failed');
 				}
 			} catch (error) {
-				console.error('Error in email.astro:', error);
+				console.error('Error:', error);
 				errorMessage?.classList.remove('hidden');
+				successMessage?.classList.add('hidden');
 			}
 		});
-	}
-</script> -->
+	});
+</script>
