@@ -1,4 +1,4 @@
-import { createTransport, type Transporter } from "nodemailer";
+import { Resend } from 'resend';
 
 type SendEmailOptions = {
   /** Email address of the sender */
@@ -9,44 +9,28 @@ type SendEmailOptions = {
   html: string;
 };
 
-export async function sendEmail(options: SendEmailOptions): Promise<Transporter> {
-  const transporter = await getEmailTransporter();
-  return new Promise(async (resolve, reject) => {
-    // Build the email message
-    const { from, subject, html } = options;
-    const sendingEmail = import.meta.env.SEND_EMAIL_FROM;
-    const message = { 
-      to: 'abdallah.w.shaban@gmail.com', 
-      subject, 
-      html, 
-      from: sendingEmail,
-      replyTo: from // Add the "from" email as the reply-to address
-    };
-    // Send the email
-    transporter.sendMail(message, (err, info) => {
-      // Log the error if one occurred
-      if (err) {
-        console.error(err);
-        reject(err);
-      }
-      // Log the message ID and preview URL if available.
-      console.log("Message sent:", info.messageId);
-      resolve(info);
-    });
-  });
-}
+export async function sendEmail(options: SendEmailOptions): Promise<void> {
+  const resend = new Resend(import.meta.env.RESEND_API_KEY);
+  const { from, subject, html } = options;
+  const sendingEmail = import.meta.env.SEND_EMAIL_FROM;
 
-async function getEmailTransporter(): Promise<Transporter> {
-  return new Promise((resolve, reject) => {
-    if (!import.meta.env.RESEND_API_KEY) {
-      throw new Error("Missing Resend configuration");
-    }
-    const transporter = createTransport({
-      host: "smtp.resend.com",
-      secure: true,
-      port: 465,
-      auth: { user: "resend", pass: import.meta.env.RESEND_API_KEY },
+  try {
+    const { data, error } = await resend.emails.send({
+      from: sendingEmail,
+      to: 'abdallah.w.shaban@gmail.com',
+      subject: subject,
+      html: html,
+      replyTo: from
     });
-    resolve(transporter);
-  });
+
+    if (error) {
+      console.error('Error sending email:', error);
+      throw new Error('Failed to send email');
+    }
+
+    console.log('Email sent successfully:', data);
+  } catch (error) {
+    console.error('Error sending email:', error);
+    throw error;
+  }
 }

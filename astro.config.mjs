@@ -18,5 +18,10 @@ export default defineConfig({
   image: {
     service: squooshImageService()
   },
-  adapter: cloudflare()
+  adapter: cloudflare(),
+  vite: {
+    ssr: {
+      noExternal: ['resend']
+    }
+  }
 });
