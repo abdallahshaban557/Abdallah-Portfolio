@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 successMessage.classList.remove('hidden');
             } else {
                 console.error('Form submission failed');
-                console.error('Form submission failed');
                 console.error('Status:', response.status);
                 console.error('Status Text:', response.statusText);
                 const responseText = await response.text();
