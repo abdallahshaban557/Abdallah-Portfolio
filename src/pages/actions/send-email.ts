@@ -13,6 +13,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Check if we're missing any of the needed fields.
     if (!from || !subject || !message) {
+      console.error('Missing required fields:', { from, subject, message });
       return new Response(JSON.stringify({ success: false, error: "Missing required fields" }), {
         status: 400,
         headers: {
@@ -21,10 +22,13 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
+    console.log('Attempting to send email with:', { from, subject });
+
     // Try to send the email
     const html = `<div>${message}</div>`;
     await sendEmail({ from, subject, html });
     
+    console.log('Email sent successfully');
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
       headers: {

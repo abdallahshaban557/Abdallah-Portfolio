@@ -1,5 +1,5 @@
 <div id="email-container">
-	<form id="email-form" action="send-email" method="post" class="w-full max-w-3xl">
+	<form id="email-form" class="w-full max-w-3xl">
 		<div class="mb-4">
 			<label for="send-email__from" class="mb-2 block text-sm font-bold text-black dark:text-white">
 				From:
@@ -96,15 +96,19 @@
 					});
 
 					if (response.ok) {
-						emailContainer.classList.add('hidden');
-						successMessage.classList.remove('hidden');
+						const result = await response.json();
+						if (result.success) {
+							emailContainer.classList.add('hidden');
+							successMessage.classList.remove('hidden');
+						} else {
+							throw new Error(result.error || 'Form submission failed');
+						}
 					} else {
-						console.error('Form submission failed');
-						// Handle error (e.g., show an error message to the user)
+						throw new Error('Form submission failed');
 					}
 				} catch (error) {
 					console.error('Error:', error);
-					// Handle error (e.g., show an error message to the user)
+					alert('An error occurred while sending the email. Please try again later.');
 				} finally {
 					loadingSpinner.classList.add('hidden');
 					emailContainer.classList.remove('opacity-50');
