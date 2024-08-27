@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData(form);
 
         try {
-            const response = await fetch('/actions/send-email', {
+            console.log('before await...');
+            const response = await fetch('actions/send-email', {
                 method: 'POST',
                 body: formData,
             });
@@ -24,6 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 successMessage.classList.remove('hidden');
             } else {
                 console.error('Form submission failed');
+                console.error('Status:', response.status);
+                console.error('Status Text:', response.statusText);
+                const responseText = await response.text();
+                console.error('Response Text:', responseText);
                 // Handle error (e.g., show an error message to the user)
             }
         } catch (error) {

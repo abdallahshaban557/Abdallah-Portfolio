@@ -10,11 +10,13 @@ type SendEmailOptions = {
 };
 
 export async function sendEmail(options: SendEmailOptions): Promise<void> {
+  console.log("inside email.ts");
   const resend = new Resend(import.meta.env.RESEND_API_KEY);
   const { from, subject, html } = options;
   const sendingEmail = import.meta.env.SEND_EMAIL_FROM;
 
   try {
+    console.log('Sending email...');
     const { data, error } = await resend.emails.send({
       from: sendingEmail,
       to: 'abdallah.w.shaban@gmail.com',
