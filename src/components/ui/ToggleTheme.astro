@@ -1,10 +1,16 @@
+---
+// This script runs on the server
+const theme = Astro.cookies.get('theme')?.value ?? 'light';
+const isChecked = theme === 'dark';
+---
+
 <div class="theme-switch-wrapper md:flex md:items-center">
 	<label
 		data-testid="theme-switch"
 		class="theme-switch relative inline-block h-[34px] w-[60px]"
 		for="checkbox"
 	>
-		<input type="checkbox" id="checkbox" class="hidden" />
+		<input type="checkbox" id="checkbox" class="hidden" checked={isChecked} />
 		<div
 			class="slider absolute bottom-0 left-0 right-0 top-0 cursor-pointer rounded-full bg-black before:absolute before:bottom-[4px] before:left-[4px] before:h-[26px] before:w-[26px] before:rounded-full before:bg-orange before:transition-[0.4s] dark:bg-white"
 		>
@@ -29,27 +35,21 @@
 </style>
 
 <script>
-	document.addEventListener('DOMContentLoaded', function ready() {
-		const button = document.querySelector(
-			'.theme-switch input[type="checkbox"]'
-		) as HTMLInputElement;
+	const button = document.querySelector('.theme-switch input[type="checkbox"]') as HTMLInputElement;
 
-		const switchTheme = () => {
-			document.documentElement.classList.toggle('dark');
-			if (document.documentElement.classList.contains('dark')) {
-				localStorage.setItem('theme', 'dark');
-			}
-		};
+	const getTheme = () => localStorage.getItem('theme') ?? 'light';
 
-		if (
-			localStorage.theme === 'dark' ||
-			(!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-		) {
-			switchTheme();
-		}
+	const setTheme = (theme: string) => {
+		localStorage.setItem('theme', theme);
+		document.documentElement.classList.toggle('dark', theme === 'dark');
+		button.checked = theme === 'dark';
+	};
 
-		button.addEventListener('click', () => {
-			switchTheme();
-		});
+	// Set initial state
+	setTheme(getTheme());
+
+	button.addEventListener('click', () => {
+		const newTheme = getTheme() === 'dark' ? 'light' : 'dark';
+		setTheme(newTheme);
 	});
 </script>
